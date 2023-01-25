@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="card">
+        @include('admin.incluides.alerts')
         <div class="card-body">
             <ul>
                 <li>

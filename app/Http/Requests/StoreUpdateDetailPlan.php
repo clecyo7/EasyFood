@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule as ValidationRule;
 
-class StoreUpdatePlan extends FormRequest
+
+class StoreUpdateDetailPlan extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,12 @@ class StoreUpdatePlan extends FormRequest
      */
     public function rules()
     {
-        $plan = $this->route()->parameter('name');
         return [
             'name' => "required|min:3|max:255",
-             ValidationRule::unique('plans')->ignore($plan),
-            'description' => 'nullable|min:3|max:255',
-            'price' => "required|regex:/^\d+(\.\d{1,2})?$/",
+            
         ];
     }
+
 
     /**
      * Get the error messages for the defined validation rules.
@@ -44,11 +42,6 @@ class StoreUpdatePlan extends FormRequest
             'name.required' => 'O campo nome é obrigatório.',
             'name.min' => 'O nome deve ter pelo menos 3 caracteres.',
             'name.max' => 'Campo nome só permite 255 caracteres',
-            'name.unique' => 'O nome já foi escolhido.',
-            'description.min' => 'A descrição deve ter pelo menos 3 caracteres.',
-            'description.max' => 'Campo nome só permite 255 caracteres',
-            'price.required' => 'O campo preço é obrigatório.',
-
         ];
     }
 }

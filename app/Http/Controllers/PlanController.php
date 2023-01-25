@@ -30,10 +30,9 @@ class PlanController extends Controller
 
     public function store(StoreUpdatePlan $request)
     {
-        $data = $request->all();
-        $data['url'] = Str::kebab($request->name);
-        $this->repository->create($data);
-        return redirect()->route('plans.index');
+        $this->repository->create($request->all());
+        return redirect()->route('plans.index')
+            ->with('success', 'Plano criado com sucesso');
     }
 
 
@@ -42,7 +41,8 @@ class PlanController extends Controller
         $plan =  $this->repository->where('url', $url)->first();
 
         if (!$plan)
-            return redirect()->back();
+            return redirect()->back()
+                ->with('warning', 'Plano não encontrado');
         return view('admin.pages.plans.show', [
             'plan' => $plan
         ]);
@@ -53,7 +53,8 @@ class PlanController extends Controller
         $plan =  $this->repository->where('url', $url)->first();
 
         if (!$plan)
-            return redirect()->back();
+            return redirect()->back()
+                ->with('warning', 'Plano não encontrado');
 
         return view('admin.pages.plans.edit', [
             'plan' => $plan
@@ -62,26 +63,37 @@ class PlanController extends Controller
 
     public function update(StoreUpdatePlan $request, $url)
     {
-        //  dd($request->all());
         $plan =  $this->repository->where('url', $url)->first();
 
         if (!$plan)
-            return redirect()->back();
+            return redirect()->back()
+                ->with('warning', 'Plano não encontrado');
 
         $plan->update($request->all());
-        return redirect()->route('plans.index');
+        return redirect()->route('plans.index')
+            ->with('success', 'Plano alterado com sucesso');
     }
 
     public function destroy($url)
     {
-        $plan =  $this->repository->where('url', $url)->first();
+        $plan =  $this->repository
+                            ->with('details')
+                            ->where('url', $url)
+                            ->first();
 
         if (!$plan)
-            return redirect()->back();
+            return redirect()->back()
+                ->with('warning', 'Plano não encontrado');
 
+
+        if($plan->details->count() > 0 ){
+            return redirect()->back()
+            ->with('error', 'Existem detalhes vinculados a esse plano, portanto não pode ser deletado');
+        }       
         $plan->delete();
 
-        return redirect()->route('plans.index');
+        return redirect()->route('plans.index')
+            ->with('success', 'Plano deletado com sucesso');
     }
 
     public function search(Request $request)
