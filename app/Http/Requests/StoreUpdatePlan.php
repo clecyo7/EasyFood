@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class StoreUpdatePlan extends FormRequest
 {
@@ -24,10 +25,10 @@ class StoreUpdatePlan extends FormRequest
      */
     public function rules()
     {
-        $url = $this->segment(3);
-        //   dd($url);
+        $plan = $this->route()->parameter('name');
         return [
-            'name' => "required|min:3|max:255|unique:plans,name, {$url}, url",
+            'name' => "required|min:3|max:255",
+             ValidationRule::unique('plans')->ignore($plan),
             'description' => 'nullable|min:3|max:255',
             'price' => "required|regex:/^\d+(\.\d{1,2})?$/",
         ];
