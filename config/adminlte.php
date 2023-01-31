@@ -307,11 +307,18 @@ return [
             'text' => 'search',
         ],
         [
-            'text'        => 'Planos',
+            'text'        => 'Planos ',
             'url'         => 'admin/plans',
             'icon'        => 'fa fa-list-ul',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Perfis ',
+            'url'         => 'admin/profiles',
+            'icon'        => 'fas fa-address-book',
+            'label_color' => 'success',
+        ],
+        
 
         // ['header' => 'account_settings'],
         // [

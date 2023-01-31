@@ -31,8 +31,8 @@
                                 {{ $detail->name }}
                             </td>
                             <td>
-                                <a href="{{ route('details.plan.edit', [$plan->url, $detail->id ]) }}" class="btn btn-info"><i class="far fa-edit"></i></a>
-                                <a href="{{ route('details.plan.show', [$plan->url, $detail->id ]) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                <a href="{{ route('details.plan.edit', [$plan->url, $detail->id ]) }}" class="btn btn-info"><i class="far fa-edit"> Editar</i></a>
+                                <a href="{{ route('details.plan.show', [$plan->url, $detail->id ]) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>
                             </td>
                         </tr>
                     @endforeach
