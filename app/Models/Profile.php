@@ -10,14 +10,4 @@ class Profile extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
-
-
-    public function search($filter = null)
-    {
-        $results = $this->where('name', 'LIKE', "%{$filter}%")
-            ->orWhere('description', 'LIKE', "%{$filter}%")
-            ->latest()->paginate(15);
-
-        return $results;
-    }
 }

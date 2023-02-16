@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUpdateProfile;
+use App\Http\Requests\StoreProfile;
+use App\Http\Requests\UpdateProfile;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,7 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateProfile $request)
+    public function store(StoreProfile $request)
     {
         $this->repository->create($request->all());
         return redirect()->route('profiles.index')
@@ -60,7 +61,7 @@ class ProfileController extends Controller
     {
         if (!$profile = $this->repository->find($id)) {
             return redirect()->back()
-                             ->with('warning', 'Pefil não encontrado');
+                ->with('warning', 'Pefil não encontrado');
         }
 
         return view('admin.pages.profiles.show', [
@@ -78,7 +79,7 @@ class ProfileController extends Controller
     {
         if (!$profile = $this->repository->find($id)) {
             return redirect()->back()
-                             ->with('warning', 'Pefil não encontrado');
+                ->with('warning', 'Pefil não encontrado');
         }
 
         return view('admin.pages.profiles.edit', [
@@ -93,7 +94,7 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateProfile $request, $id)
+    public function update(UpdateProfile $request, $id)
     {
         if (!$profile = $this->repository->find($id)) {
             return redirect()->back()
@@ -115,7 +116,7 @@ class ProfileController extends Controller
     {
         if (!$profile = $this->repository->find($id)) {
             return redirect()->back()
-                             ->with('warning', 'Pefil não encontrado');
+                ->with('warning', 'Pefil não encontrado');
         }
 
         $profile->delete();
@@ -127,7 +128,16 @@ class ProfileController extends Controller
     public function search(Request $request)
     {
         $filters = $request->except('token');
-        $profiles = $this->repository->search($request->filter);
+
+        $profiles = $this->repository
+            ->where(function ($query) use ($request) {
+                if ($request->filter) {
+                    $query->where('name', $request->filter)
+                        ->orWhere('description', 'LIKE', "%{$request->filter}%");
+                }
+            })
+            ->paginate();
+
 
         return view('admin.pages.profiles.index', [
             'profiles' => $profiles,

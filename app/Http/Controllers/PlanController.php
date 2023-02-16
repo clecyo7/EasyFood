@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePlan;
 use App\Http\Requests\StoreUpdatePlan;
+use App\Http\Requests\UpdatePlan;
 use Illuminate\Support\Str;
 use App\Models\Plan;
 use Illuminate\Http\Request;
@@ -28,7 +30,7 @@ class PlanController extends Controller
         return view('admin.pages.plans.create');
     }
 
-    public function store(StoreUpdatePlan $request)
+    public function store(StorePlan $request)
     {
         $this->repository->create($request->all());
         return redirect()->route('plans.index')
@@ -61,7 +63,7 @@ class PlanController extends Controller
         ]);
     }
 
-    public function update(StoreUpdatePlan $request, $url)
+    public function update(UpdatePlan $request, $url)
     {
         $plan =  $this->repository->where('url', $url)->first();
 
@@ -89,7 +91,7 @@ class PlanController extends Controller
         if($plan->details->count() > 0 ){
             return redirect()->back()
             ->with('error', 'Existem detalhes vinculados a esse plano, portanto não pode ser deletado');
-        }       
+        }
         $plan->delete();
 
         return redirect()->route('plans.index')

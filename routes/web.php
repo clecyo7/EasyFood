@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DetailPlanController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -54,11 +55,15 @@ Route::prefix('admin')
 
          Route::get('/', [PlanController::class, 'index'])->name('admin.index');
 
-            /**
+         /**
          *Routes Profile
          */
-
-         Route::resource('profiles', ProfileController::class);
          Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
-       
+         Route::resource('profiles', ProfileController::class);
+
+          /**
+         *Routes Permission
+         */
+        Route::any('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
+        Route::resource('permissions', PermissionController::class);
     });

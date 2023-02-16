@@ -318,7 +318,13 @@ return [
             'icon'        => 'fas fa-address-book',
             'label_color' => 'success',
         ],
-        
+        [
+            'text'        => 'Permissões ',
+            'url'         => 'admin/permissions',
+            'icon'        => 'fas fa-lock',
+            'label_color' => 'success',
+        ],
+
 
         // ['header' => 'account_settings'],
         // [
