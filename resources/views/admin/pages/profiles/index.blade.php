@@ -41,6 +41,7 @@
                                 <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-info"><i class="far fa-edit"> Editar</i></a>
                                 <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>
                                 <a href="{{ route('profiles.permissions', $profile->id) }}" class="btn btn-warning"><i class="fas fa-lock" aria-hidden="true"></i></a>
+                                <a href="{{ route('profiles.plans', $profile->id) }}" class="btn btn-warning"><i class="fas fa-address-book" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     @endforeach

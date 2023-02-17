@@ -17,6 +17,11 @@ class Profile extends Model
         return $this->belongsToMany(Permission::class);
     }
 
+    public function plan()
+    {
+        return $this->belongsToMany(Plan::class);
+    }
+
     /**
      * Permissão não vinculada a este perfil
      */
