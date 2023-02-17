@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DetailPlanController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PermissionProfileController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -66,4 +67,14 @@ Route::prefix('admin')
          */
         Route::any('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
         Route::resource('permissions', PermissionController::class);
+
+
+         /**
+         *Routes Permission x Profile
+         */
+        Route::get('profiles/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profiles.permission.detach');
+        Route::post('profiles/{id}/permissions', [PermissionProfileController::class, 'attchPermissionsProfile'])->name('profiles.permissions.attch');
+        Route::any('profiles/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profiles.permissions.available');
+        Route::get('profiles/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
+        Route::get('permissions/{id}/profile', [PermissionProfileController::class, 'profiles'])->name('permissions.profiles');
     });
