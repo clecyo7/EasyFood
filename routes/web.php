@@ -1,12 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DetailPlanController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionProfileController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanProfileController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +20,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class, 'index'])->name('site.home');
 
 
 
 
 Route::prefix('admin')
+    ->middleware('auth')
     ->group(function () {
 
           /**
@@ -89,3 +89,6 @@ Route::prefix('admin')
         Route::get('plans/{id}/profiles', [PlanProfileController::class, 'profiles'])->name('plans.profiles');
         Route::get('profiles/{id}/plans', [PlanProfileController::class, 'plans'])->name('profiles.plans');
     });
+
+
+require __DIR__.'/auth.php';

@@ -51,7 +51,7 @@ class DetailPlanController extends Controller
     }
 
 
-    public function store(StoreUpdateDetailPlan $request, $urlPlan)
+    public function store(Request $request, $urlPlan)
     {
         $plan =  $this->plan->where('url', $urlPlan)->first();
 
