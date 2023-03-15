@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\FuncCall;
 
 class Plan extends Model
 {
@@ -22,6 +23,11 @@ class Plan extends Model
         return $this->belongsToMany(Profile::class);
     }
 
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class);
+    }
+
     public function search($filter = null)
     {
         $results = $this->where('name', 'LIKE', "%{$filter}%")
@@ -31,7 +37,7 @@ class Plan extends Model
         return $results;
     }
 
-        /**
+    /**
      * perfis não vinculados a este plano
      */
     public function permissionsAvailable($filter = null)

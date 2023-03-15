@@ -20,16 +20,11 @@ use App\Http\Controllers\SiteController;
 |
 */
 
-Route::get('/', [SiteController::class, 'index'])->name('site.home');
-
-
-
-
 Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
 
-          /**
+        /**
          * Routes Details Plans
          */
         Route::get('/plans/{url}/details', [DetailPlanController::class, 'index'])->name('details.plan.index');
@@ -51,26 +46,26 @@ Route::prefix('admin')
         Route::delete('/plans/{url}', [PlanController::class, 'destroy'])->name('plans.destroy');
         Route::any('plans/search', [PlanController::class, 'search'])->name('plans.search');
 
-          /**
+        /**
          * Home Dashboard
          */
 
-         Route::get('/', [PlanController::class, 'index'])->name('admin.index');
+        Route::get('/', [PlanController::class, 'index'])->name('admin.index');
 
-         /**
+        /**
          *Routes Profile
          */
-         Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
-         Route::resource('profiles', ProfileController::class);
+        Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
+        Route::resource('profiles', ProfileController::class);
 
-          /**
+        /**
          *Routes Permission
          */
         Route::any('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
         Route::resource('permissions', PermissionController::class);
 
 
-         /**
+        /**
          *Routes Permission x Profile
          */
         Route::get('profiles/{id}/permission/{idPermission}/detach', [PermissionProfileController::class, 'detachPermissionProfile'])->name('profiles.permission.detach');
@@ -90,5 +85,10 @@ Route::prefix('admin')
         Route::get('profiles/{id}/plans', [PlanProfileController::class, 'plans'])->name('profiles.plans');
     });
 
+    /**
+    *Routes Sites
+    */
+    Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('plan.subscription');
+    Route::get('/', [SiteController::class, 'index'])->name('site.home');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
