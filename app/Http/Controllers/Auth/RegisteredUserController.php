@@ -27,44 +27,46 @@ class RegisteredUserController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-             'name' => ['required', 'string', 'max:255'],
-             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-             'cnpj' => ['required','unique:tenants'],
-             'empresa' => ['required','unique:tenants,name'],
-        ],
-        [
-            'name.required' => 'O campo nome é obrigatório.',
-            'name.max' => 'Campo nome só permite 255 caracteres',
-            'name.unique' => 'Plano já cadastrado.',
-            'password' => 'O campo senha é obrigatório',
-            'cnpj' => 'O campo CNPJ é Obrigatório.',
-            'empresa.required' => 'O campo empresa é obrigatório',
-            'email.unique' => 'Email já foi cadastrado',
-            'password.confirmed' => 'A confirmação da senha não corresponde',
-            'cnpj.required' => 'O campo CNPJ é obrigatório',
-        ]
-    );
+        $request->validate(
+            [
+                'name'     => ['required', 'string', 'max:255'],
+                'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'cnpj'     => ['required', 'numeric', 'cnpj', 'unique:tenants'],
+                'empresa'  => ['required', 'string', 'min:3', 'max:255', 'unique:tenants,name'],
+            ],
+            [
+                'name.required'      => 'O campo nome é obrigatório.',
+                'name.max'           => 'Campo só permite 255 caracteres',
+                'name.unique'        => 'Plano já cadastrado.',
+                'password.required'  => 'O campo senha é obrigatório',
+                'password.confirmed' => 'A confirmação da senha não corresponde',
+                'cnpj.unique'        => 'CNPJ já cadastrado.',
+                'cnpj.min'           => 'Campo precisa ter 14 caracteres',
+                'cnpj.max'           => 'Campo precisa ter 15 caracteres',
+                'cnpj.required'      => 'O campo CNPJ é obrigatório',
+                'cnpj.numeric'       => 'O cnpj deve ser um número',
+                'empresa.required'   => 'O campo empresa é obrigatório',
+                'empresa.unique'     => 'Empresa já cadastrada',
+                'empresa.min'        => 'A empresa deve ter pelo menos 3 caracteres',
+                'empresa.max'        => 'Campo só permite 255 caracteres',
+                'email.unique'       => 'Email já foi cadastrado',
+                'email.required'     => 'o campo Email é obrigatório',
+            ]
+        );
 
-        // $user = User::create([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($request->password),
-        // ]);
 
-        if (!$plan = session('plan')){
+        if (!$plan = session('plan')) {
             return redirect()->back('site.home');
         }
 
         $tenant = $plan->tenants()->create([
             'cnpj'  => $request->cnpj,
             'name'  => $request->empresa,
-           // 'url'   => Str::kebab($request->empresa),
             'email' => $request->email,
 
             'subscription' => now(),
-            'expires_at' =>now()->addDays(7),
+            'expires_at' => now()->addDays(7),
         ]);
 
         $user = $tenant->users()->create([
@@ -73,9 +75,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-      //  $tenantService = app(TenantService::class);
+        //  $tenantService = app(TenantService::class);
 
-       //  $user = $tenantService->make($plan, $request);
+        //  $user = $tenantService->make($plan, $request);
 
         event(new Registered($user));
 
