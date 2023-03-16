@@ -25,4 +25,5 @@ return [
     'verify_if_not_recieved'      => 'caso não tenha recebido o email',
     'verify_request_another'      => 'clique aqui para solicitar um novo',
     'confirm_password_message'    => 'Por favor, confirme sua senha para continuar.',
+    'empresa'                     => 'Nome da Empresa'
 ];
