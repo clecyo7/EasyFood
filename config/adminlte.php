@@ -324,6 +324,12 @@ return [
             'icon'        => 'fas fa-lock',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Usuários ',
+            'url'         => 'admin/users',
+            'icon'        => 'fas fa-users',
+            'label_color' => 'success',
+        ],
 
 
         // ['header' => 'account_settings'],

@@ -8,6 +8,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,12 @@ Route::prefix('admin')
          */
 
         Route::get('/', [PlanController::class, 'index'])->name('admin.index');
+
+        /**
+         *Routes Users
+         */
+        Route::any('users/search', [UserController::class, 'search'])->name('users.search');
+        Route::resource('users', UserController::class);
 
         /**
          *Routes Profile

@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Services\TenantService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -64,7 +62,7 @@ class RegisteredUserController extends Controller
             'cnpj'  => $request->cnpj,
             'name'  => $request->empresa,
             'email' => $request->email,
-
+           // 'url'   => Str::kebab($request->empresa), criado observer uui
             'subscription' => now(),
             'expires_at' => now()->addDays(7),
         ]);
