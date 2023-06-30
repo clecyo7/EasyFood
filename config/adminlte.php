@@ -336,6 +336,12 @@ return [
             'icon'        => 'fas fa-layer-group',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Produtos ',
+            'url'         => 'admin/products',
+            'icon'        => 'fas fa-tag',
+            'label_color' => 'success',
+        ],
 
 
         // ['header' => 'account_settings'],

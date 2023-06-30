@@ -7,7 +7,7 @@
 
 <div class="form-group">
     <label for="">Descrição:</label>
-    <textarea name="description"  cols="30" rows="5" class="form-control" value="{{ $category->description ?? old('email') }}"></textarea>
+    <textarea name="description"  cols="30" rows="5" class="form-control"></textarea>
 
 </div>
 

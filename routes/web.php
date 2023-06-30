@@ -7,6 +7,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionProfileController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanProfileController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
@@ -71,6 +72,12 @@ Route::prefix('admin')
          */
         Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
         Route::resource('profiles', ProfileController::class);
+
+         /**
+         *Routes Products
+         */
+        Route::any('products/search', [ProductsController::class, 'search'])->name('products.search');
+        Route::resource('products', ProductsController::class);
 
         /**
          *Routes Permission

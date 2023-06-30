@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateCategory;
 use App\Models\Category;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -41,7 +42,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateCategory $request)
     {
         $this->repository->create($request->all());
 
@@ -54,9 +55,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+
+        if(!$category = $this->repository->find($id)) {
+            return redirect()->back();
+        }
+   //     dd($category);
+        return view('admin.pages.categories.show', compact('category'));
     }
 
     /**
@@ -65,9 +71,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        if(!$category = $this->repository->find($id)) {
+            redirect()->back()
+            ->with('warning', 'Categoria não encontrada');
+        }
+
+        return view('admin.pages.categories.edit', compact('category'));
     }
 
     /**
@@ -77,19 +88,55 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateCategory $request, Category $category)
+    public function update(StoreUpdateCategory $request, $id)
     {
-        //
+        if(!$category = $this->repository->find($id)) {
+            redirect()->back()
+            ->with('warning', 'Categoria não encontrada');
+        }
+
+        $category->update($request->all());
+        return redirect()->route('categories.index')
+        ->with('sucess', 'Categoria alterada com sucesso');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        if (!$category = $this->repository->find($id)) {
+            return redirect()->back()
+                ->with('warning', 'Categoria não encontrada');
+        }
+
+        $category->delete();
+
+        return redirect()->route('categories.index')
+            ->with('success', 'Categoria deletada com sucesso');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->except('token');
+
+        $categories = $this->repository
+            ->where(function ($query) use ($request) {
+                if ($request->filter) {
+                    $query->where('name', 'LIKE', "%{$request->filter}%")
+                        ->orWhere('description', 'LIKE', "%{$request->filter}%");
+                }
+            })
+            ->paginate();
+
+
+        return view('admin.pages.categories.index', [
+            'categories' => $categories,
+            'filters' => $filters
+        ]);
     }
 }

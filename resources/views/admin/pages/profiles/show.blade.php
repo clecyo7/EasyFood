@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1>Detalhes do Perfil <b>{{$profile->name}}</b></h1>
-@stop 
+@stop
 
 @section('content')
     <div class="card">
@@ -24,7 +24,7 @@
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Deletar o perfil {{$profile->name}}</button>
             </form>
-         
+
         </div>
     </div>
-@stop     
+@stop
