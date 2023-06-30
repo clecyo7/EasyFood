@@ -46,7 +46,7 @@ class UserController extends Controller
     public function store(StoreUpdateUser $request)
     {
         $data = $request->all();
-        $data['tenant_id'] = Auth()->user()->tenant;
+        $data['tenant_id'] = Auth()->user()->tenant_id;
         $data['password'] = bcrypt($data['password']);
 
         $this->repository->create($data);
@@ -107,8 +107,10 @@ class UserController extends Controller
         $data = $request->only(['name', 'email']);
 
         if($request->password) {
+            $data = $request->only(['name', 'email', 'password']);
             $data['password'] = bcrypt($data['password']);
         }
+
         $user->update($data);
         return redirect()->route('users.index')
             ->with('success', 'Perfil alterado com sucesso');

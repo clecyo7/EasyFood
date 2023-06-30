@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DetailPlanController;
 use App\Http\Controllers\PermissionController;
@@ -58,6 +59,12 @@ Route::prefix('admin')
          */
         Route::any('users/search', [UserController::class, 'search'])->name('users.search');
         Route::resource('users', UserController::class);
+
+         /**
+         *Routes Categories
+         */
+        Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+        Route::resource('categories', CategoryController::class);
 
         /**
          *Routes Profile

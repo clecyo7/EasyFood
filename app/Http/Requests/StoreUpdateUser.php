@@ -39,7 +39,9 @@ class StoreUpdateUser extends FormRequest
        * validação para ignorar quando a senha quando for method put
        */
         if($this->method() == 'PUT') {
-            $rules['password'] = ['nullable', 'confirmed', Rules\Password::defaults()];
+            $rules['password'] = ['nullable', Rules\Password::defaults()];
+        }else {
+            $rules['password'] = ['required', Rules\Password::defaults()];
         }
 
         return $rules;

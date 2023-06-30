@@ -330,6 +330,12 @@ return [
             'icon'        => 'fas fa-users',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Categorias ',
+            'url'         => 'admin/categories',
+            'icon'        => 'fas fa-layer-group',
+            'label_color' => 'success',
+        ],
 
 
         // ['header' => 'account_settings'],
