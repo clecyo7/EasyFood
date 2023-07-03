@@ -94,17 +94,45 @@ class ProductsController extends Controller
      * @param  \App\Models\Products  $Products
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateProduct $request, $id)
+    public function update1(StoreUpdateProduct $request, $id)
     {
-
         if (!$product = $this->repository->find($id)) {
             return redirect()->back()
-                ->with('warning', 'Categoria não encontrada');;
+                ->with('warning', 'Produto não encontrado');
         }
 
-        $data = $request->all();
-
         $tenant = auth()->user()->tenant;
+
+        // Obtém os dados do request
+        $data = $request->except(['_token', '_method']);
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Deleta a imagem anterior, se existir
+            if ($product->image && Storage::exists($product->image)) {
+                Storage::delete($product->image);
+            }
+
+            // Define o caminho de armazenamento da nova imagem
+            $data['image'] = $request->file('image')->store("tenants/{$tenant->uuid}/products");
+        }
+
+        // Atualiza o produto com os novos dados
+        $product->update($data);
+
+        return redirect()->route('products.index')
+            ->with('success', 'Produto atualizado com sucesso');
+    }
+
+    public function update(StoreUpdateProduct $request, $id)
+    {
+        if (!$product = $this->repository->find($id)) {
+            return redirect()->back()
+                ->with('warning', 'Produto não encontrado');;
+        }
+
+        $data = $request->except(['_token', '_method']);
+        $tenant = auth()->user()->tenant;
+
 
         if ($request->hasFile('image') && $request->image->isValid()) {
 
@@ -114,9 +142,7 @@ class ProductsController extends Controller
             $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
         }
 
-
-
-        $product->update($request->all());
+        $product->update($data);
 
         return redirect()->route('products.index')
             ->with('sucess', 'Produto atualizado com sucesso');
