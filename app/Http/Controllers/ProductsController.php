@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateCategory;
 use App\Http\Requests\StoreUpdateProduct;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,7 +12,7 @@ class ProductsController extends Controller
 {
     private $repository;
 
-    public function __construct(Products $product)
+    public function __construct(Product $product)
     {
         $this->repository = $product;
     }

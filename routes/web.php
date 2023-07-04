@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DetailPlanController;
 use App\Http\Controllers\PermissionController;
@@ -78,6 +79,15 @@ Route::prefix('admin')
          */
         Route::any('products/search', [ProductsController::class, 'search'])->name('products.search');
         Route::resource('products', ProductsController::class);
+
+         /**
+         *Routes Category x Product
+         */
+        Route::get('products/{id}/category/{idCategory}/detach', [CategoryProductController::class, 'detachCategoryProduct'])->name('products.category.detach');
+        Route::post('products/{id}/categories', [CategoryProductController::class, 'attchCategoriesProduct'])->name('products.categories.attch');
+        Route::any('products/{id}/categories/create', [CategoryProductController::class, 'categoriesAvailable'])->name('products.categories.available');
+        Route::get('products/{id}/categories', [CategoryProductController::class, 'categories'])->name('products.categories');
+        Route::get('categories/{id}/products', [CategoryProductController::class, 'products'])->name('categories.products');
 
         /**
          *Routes Permission

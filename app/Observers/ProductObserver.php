@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Support\Str;
 
 class ProductObserver
@@ -13,7 +13,7 @@ class ProductObserver
      * @param  \App\Models\Models\\Tenant  $tenant
      * @return void
      */
-    public function creating(Products $product)
+    public function creating(Product $product)
     {
 
         $product->flag = Str::kebab($product->title);
@@ -25,7 +25,7 @@ class ProductObserver
      * @param  \App\Models\Models\\Tenant  $tenant
      * @return void
      */
-    public function updating(Products $product)
+    public function updating(Product $product)
     {
         $product->flag = Str::kebab($product->title);
     }
