@@ -342,6 +342,12 @@ return [
             'icon'        => 'fas fa-tag',
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Mesas ',
+            'url'         => 'admin/tables',
+            'icon'        => 'fas fa-table',
+            'label_color' => 'success',
+        ],
 
 
         // ['header' => 'account_settings'],

@@ -61,7 +61,6 @@ class CategoryController extends Controller
         if(!$category = $this->repository->find($id)) {
             return redirect()->back();
         }
-   //     dd($category);
         return view('admin.pages.categories.show', compact('category'));
     }
 

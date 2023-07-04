@@ -1,8 +1,8 @@
 @include('admin.incluides.alerts')
 
 <div class="form-group">
-    <label for="">Nome:</label>
-    <input type="text" name="name" class="form-control" placeholder="Nome:" value="{{ $category->name ?? old('name') }}">
+    <label for="">Idenficado da Mesa:</label>
+    <input type="text" name="identify" class="form-control" placeholder="Nome:" value="{{ $table->identify ?? old('identify') }}">
 </div>
 
 <div class="form-group">

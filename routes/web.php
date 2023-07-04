@@ -11,6 +11,7 @@ use App\Http\Controllers\PlanProfileController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -27,6 +28,13 @@ use App\Http\Controllers\UserController;
 Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
+
+
+                /**
+         *Routes Permission
+         */
+        Route::any('tables/search', [TableController::class, 'search'])->name('tables.search');
+        Route::resource('tables', TableController::class);
 
         /**
          * Routes Details Plans
