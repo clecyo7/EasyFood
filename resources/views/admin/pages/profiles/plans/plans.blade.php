@@ -7,7 +7,7 @@
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('profiles.index') }}">Perfis</a></li>
     </ol>
-    <h1>Perfis da Permissão <strong>{{$profile->name}}</strong>
+    <h1>Planos do Perfil <strong>{{$profile->name}}</strong>
 
 @stop
 

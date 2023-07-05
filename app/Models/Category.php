@@ -14,7 +14,7 @@ class Category extends Model
 
 
     protected $table = 'categories';
-    protected $fillable = ['tenant_id', 'name', 'url', 'description'];
+    protected $fillable = ['name', 'url', 'description'];
 
     public function products() {
         return $this->belongsToMany(Products::class);

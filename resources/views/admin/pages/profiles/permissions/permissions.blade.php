@@ -9,7 +9,7 @@
     </ol>
     <h1>Permissões do Perfil <strong>{{$profile->name}}</strong>
         <a href="{{ route('profiles.permissions.available', $profile->id) }}" class="btn btn-dark">
-        <i class="far fa-plus-square"></i>  Add Nova Permissão</a></h1>
+        <i class="far fa-plus-square"></i> ADD NOVA PERMISSÃO</a></h1>
 @stop
 
 @section('content')

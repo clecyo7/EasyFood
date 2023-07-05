@@ -10,7 +10,11 @@ class Permission extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
-
+ 
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class);
+    }
 
     public function search($filter = null)
     {
@@ -19,11 +23,5 @@ class Permission extends Model
             ->latest()->paginate(15);
 
         return $results;
-    }
-
-
-    public function profiles()
-    {
-        return $this->belongsToMany(Profile::class);
     }
 }

@@ -89,7 +89,7 @@ class PlanProfileController extends Controller
                 ->with('warning', 'Permissão não encontrado');
         }
         // devolve todas as permissões
-        $plans = $profile->plan()->paginate();
+        $plans = $profile->plans()->paginate();
         return view('admin.pages.profiles.plans.plans', compact('plans', 'profile'));
     }
 }

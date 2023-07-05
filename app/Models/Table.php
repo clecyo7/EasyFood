@@ -15,8 +15,8 @@ class Table extends Model
     protected $table = 'tables';
     protected $fillable = ['identify', 'description'];
 
-    public function products()
-    {
-        return $this->belongsToMany(Products::class);
-    }
+    // public function products()
+    // {
+    //     return $this->belongsToMany(Products::class);
+    // }
 }
