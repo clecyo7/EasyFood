@@ -12,7 +12,6 @@ class Table extends Model
 
     use TenantTrait;
 
-    protected $table = 'tables';
     protected $fillable = ['identify', 'description'];
 
     // public function products()

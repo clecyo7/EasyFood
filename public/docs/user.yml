@@ -1,0 +1,24 @@
+user
+    tenant
+        plan
+            profiles
+                permissions
+
+User: Clecyo
+    tenant: C7 TECH
+        Plano: Standard
+            perfil: Financeiro
+                permissão: view_financeiro
+                permissão: detail_fin
+                permissão: add_fin
+            perfil: gestor de produtos
+                permissão: view_product
+            perfil: admin
+                permissão: relatórios
+
+products
+    permissão: view_financeiro
+    permissão: detail_fin
+    permissão: add_fin
+    permissão: view_product
+    permissão: relatórios

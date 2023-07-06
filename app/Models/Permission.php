@@ -10,18 +10,20 @@ class Permission extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'description'];
- 
+
+    /**
+     * Get Profiles
+     */
     public function profiles()
     {
         return $this->belongsToMany(Profile::class);
     }
 
-    public function search($filter = null)
+    /**
+     * Get Roles
+     */
+    public function roles()
     {
-        $results = $this->where('name', 'LIKE', "%{$filter}%")
-            ->orWhere('description', 'LIKE', "%{$filter}%")
-            ->latest()->paginate(15);
-
-        return $results;
+        return $this->belongsToMany(Role::class);
     }
 }

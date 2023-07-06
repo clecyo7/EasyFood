@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Expr\FuncCall;
 
 class Plan extends Model
 {
@@ -31,28 +30,28 @@ class Plan extends Model
     public function search($filter = null)
     {
         $results = $this->where('name', 'LIKE', "%{$filter}%")
-            ->orWhere('description', 'LIKE', "%{$filter}%")
-            ->latest()->paginate(15);
+                        ->orWhere('description', 'LIKE', "%{$filter}%")
+                        ->paginate();
 
         return $results;
     }
 
     /**
-     * perfis não vinculados a este plano
+     * Profiles not linked with this plan
      */
-    public function permissionsAvailable($filter = null)
+    public function profilesAvailable($filter = null)
     {
-        $permissions = Profile::whereNotIn('profiles.id', function ($query) {
+        $profiles = Profile::whereNotIn('profiles.id', function($query) {
             $query->select('plan_profile.profile_id');
             $query->from('plan_profile');
             $query->whereRaw("plan_profile.plan_id={$this->id}");
         })
-            ->where(function ($queryFilter) use ($filter) {
-                if ($filter)
-                    $queryFilter->where('profiles.name', 'LIKE', "%{$filter}%");
-            })
-            ->paginate();
+        ->where(function ($queryFilter) use ($filter) {
+            if ($filter)
+                $queryFilter->where('profiles.name', 'LIKE', "%{$filter}%");
+        })
+        ->paginate();
 
-        return $permissions;
+        return $profiles;
     }
 }

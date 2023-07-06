@@ -31,7 +31,7 @@
                                 {{ $profile->name }}
                             </td>
                             <td  width="50">
-                                <a href="{{ route('plans.profiles.detach', [$plan->id, $profile->id]) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <a href="{{ route('plans.profile.detach', [$plan->id, $profile->id]) }}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                     @endforeach

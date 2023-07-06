@@ -3,18 +3,32 @@
 namespace App\Services;
 
 use App\Models\Plan;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
+use App\Repositories\Contracts\TenantRepositoryInterface;
 
 class TenantService
 {
     private $plan, $data = [];
+    private $repository;
 
-    public function make(Plan $plan, Request $request)
+    // public function __construct(TenantRepositoryInterface $repository)
+    // {
+    //     $this->repository = $repository;
+    // }
+
+    // public function getAllTenants(int $per_page)
+    // {
+    //     return $this->repository->getAllTenants($per_page);
+    // }
+
+    // public function getTenantByUuid(string $uuid)
+    // {
+    //     return $this->repository->getTenantByUuid($uuid);
+    // }
+
+    public function make(Plan $plan, array $data)
     {
         $this->plan = $plan;
-        $this->data = $request;
+        $this->data = $data;
 
         $tenant = $this->storeTenant();
 
@@ -23,15 +37,13 @@ class TenantService
         return $user;
     }
 
-
     public function storeTenant()
     {
         $data = $this->data;
 
         return $this->plan->tenants()->create([
-            'cnpj'  => $data['cnpj'],
-            'name'  => $data['empresa'],
-            'url'   => Str::kebab($data['empresa']),
+            'cnpj' => $data['cnpj'],
+            'name' => $data['empresa'],
             'email' => $data['email'],
 
             'subscription' => now(),
@@ -39,13 +51,12 @@ class TenantService
         ]);
     }
 
-
     public function storeUser($tenant)
     {
         $user = $tenant->users()->create([
-            'name'  => $this->data['name'],
+            'name' => $this->data['name'],
             'email' => $this->data['email'],
-            'password' => Hash::make($this->data['password']),
+            'password' => bcrypt($this->data['password']),
         ]);
 
         return $user;
