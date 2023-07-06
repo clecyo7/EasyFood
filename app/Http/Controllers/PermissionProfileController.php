@@ -13,6 +13,7 @@ class PermissionProfileController extends Controller
         protected Profile $profile,
         protected Permission $permission
     ) {
+        $this->middleware(['can:profiles']);
     }
 
 

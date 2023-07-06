@@ -1,14 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuárioss')
+@section('title', 'Usuários')
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('categories.index') }}">Categorias</a></li>
     </ol>
+    @can('add_cat')
+
+    {{-- verifica se tem permissao para add nova categoria --}}
     <h1>Categorias <a href="{{ route('categories.create') }}" class="btn btn-dark">
         <i class="far fa-plus-square"></i></a></h1>
+    @endcan
+    
 @stop
 
 @section('content')

@@ -13,6 +13,8 @@ class TableController extends Controller
     public function __construct(Table $repository)
     {
         $this->repository = $repository;
+
+        $this->middleware(['can:tables']);
     }
     /**
      * Display a listing of the resource.

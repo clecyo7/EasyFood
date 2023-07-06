@@ -12,7 +12,10 @@ class CategoryProductController extends Controller
     public function __construct(
         protected Product $product,
         protected Category $category
+
+        
     ) {
+        $this->middleware(['can:products']);
     }
 
     public function categories($idProfile)

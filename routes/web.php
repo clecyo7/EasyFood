@@ -30,9 +30,6 @@ Route::prefix('admin')
     ->group(function () {
 
 
-        Route::get('teste', function ()  {
-            dd(auth()->user()->permissions());
-        });
                 /**
          *Routes Permission
          */

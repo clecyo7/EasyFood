@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
                 'name'     => ['required', 'string', 'max:255'],
                 'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'cnpj'     => ['required', 'numeric', 'cnpj', 'unique:tenants'],
+              //  'cnpj'     => ['required', 'numeric', 'cnpj', 'unique:tenants'],
                 'empresa'  => ['required', 'string', 'min:3', 'max:255', 'unique:tenants,name'],
             ],
             [
