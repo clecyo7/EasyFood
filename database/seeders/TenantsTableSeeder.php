@@ -18,10 +18,17 @@ class TenantsTableSeeder extends Seeder
         $plan = Plan::first();
 
         $plan->tenants()->create([
-            'cnpj' => '2388270600120',
+            'cnpj' => '23882706001200',
             'name' => 'C7Tech',
             'url'  => 'c7tech',
             'email' => 'admin@c7tech.com',
+            'active' => 'Y',
+            'subscription' => '2023-07-07',
+            'expires_at' => '2024-07-07',
+            'subscription_id' => 'teste',
+            'subscription_active' => 1,
+            'subscription_suspended' => 0,
+
         ]);
     }
 }

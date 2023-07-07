@@ -1,4 +1,3 @@
-
 @extends('adminlte::page')
 
 @section('title', "Detalhes da Empresa {$tenant->name}")
@@ -30,7 +29,7 @@
                     <strong>Ativo:</strong> {{ $tenant->active == 'Y' ? 'SIM' : 'NÃO' }}
                 </li>
             </ul>
-            
+
             <h3>Assinatura </h3>
             <ul>
                 <li>
@@ -43,10 +42,10 @@
                     <strong>Identificador: </strong> {{ $tenant->subscription_id }}
                 </li>
                 <li>
-                    <strong>Ativo?: </strong> {{ $tenant->subscription_active == 'Y'  ? 'SIM' : 'NÃO' }}
+                    <strong>Ativo?: </strong> {{ $tenant->subscription_active ? 'SIM' : 'NÃO' }}
                 </li>
                 <li>
-                    <strong>Cancelou? :</strong> {{ $tenant->subscription_active_suspended ? 'SIM' : 'NÃO'  }}
+                    <strong>Cancelou? :</strong> {{ $tenant->subscription_suspended ? 'SIM' : 'NÃO'  }}
                 </li>
 
             </ul>

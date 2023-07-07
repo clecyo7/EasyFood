@@ -38,7 +38,7 @@ class StoreUpdateTenant extends FormRequest
             'subscription_active' => ['nullable', 'boolean'],
             'subscription_suspended' => ['nullable', 'boolean'],
         ];
-     
+
         return $rules;
     }
 }

@@ -41,7 +41,7 @@
                                 {{ $product->title }}
                             </td>
                             <td style="text-align: center">
-                                <a href="{{ route('products.categories', $product->id) }}" class="btn btn-warning"><i class="fas fa-layer-group" aria-hidden="true"></i></a>
+                                <a href="{{ route('products.categories', $product->id) }}" class="btn btn-warning"><i class="fas fa-layer-group" aria-hidden="true"> Categorias</i></a>
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-info"><i class="far fa-edit"> Editar</i></a>
                                 <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>
                             </td>

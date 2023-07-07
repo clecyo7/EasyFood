@@ -40,7 +40,7 @@
                                 {{-- <a href="{{ route('details.plan.index', $profile->id) }}" class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"> Detalhes</i></a> --}}
                                 <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info"><i class="far fa-edit"> Editar</i></a>
                                 <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>
-                                <a href="{{ route('permissions.profiles', $permission->id) }}" class="btn btn-warning"><i class="fas fa-address-book" aria-hidden="true"></i></a>
+                                <a href="{{ route('permissions.profiles', $permission->id) }}" class="btn btn-warning"><i class="fas fa-address-book" aria-hidden="true"> Perfis</i></a>
                             </td>
                         </tr>
                     @endforeach

@@ -45,7 +45,7 @@
                                 <a href="{{ route('details.plan.index', $plan->url) }}" class="btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"> Detalhes</i></a>
                                 <a href="{{ route('plans.edit', $plan->url) }}" class="btn btn-info"><i class="far fa-edit"> Editar</i></a>
                                 <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>
-                                <a href="{{ route('plans.profiles', $plan->id) }}" class="btn btn-warning"><i class="fas fa-address-book" aria-hidden="true"></i></a>
+                                <a href="{{ route('plans.profiles', $plan->id) }}" class="btn btn-warning"><i class="fas fa-address-book" aria-hidden="true"> Perfil</i></a>
                             </td>
                         </tr>
                     @endforeach

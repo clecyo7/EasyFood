@@ -8,8 +8,8 @@
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('tenants.index') }}">Empresas</a></li>
     </ol>
-    <h1>Empresas <a href="{{ route('tenants.create') }}" class="btn btn-dark">
-        <i class="far fa-plus-square"></i></a></h1>
+    {{-- <h1>Empresas <a href="{{ route('tenants.create') }}" class="btn btn-dark">
+        <i class="far fa-plus-square"></i></a></h1> --}}
 @stop
 
 @section('content')

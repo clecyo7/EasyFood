@@ -15,7 +15,7 @@ class TenantController extends Controller
     {
         $this->repository = $tenant;
 
-    //    $this->middleware(['can:tenants']);
+        //    $this->middleware(['can:tenants']);
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class TenantController extends Controller
     public function index()
     {
         $tenants = $this->repository->latest()->paginate();
-      
+
         return view('admin.pages.tenants.index', compact('tenants'));
     }
 
@@ -96,7 +96,8 @@ class TenantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StoreUpdateTenant $request, $id)
-    {      
+    {
+       //  dd($request->all());
         if (!$tenant = $this->repository->find($id)) {
             return redirect()->back()
                 ->with('warning', 'Empresa não encontrada');;
@@ -115,7 +116,6 @@ class TenantController extends Controller
             $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}/tenants");
         }
 
-        $tenant->update($data);
 
         return redirect()->route('tenants.index')
             ->with('sucess', 'Empresa atualizada com sucesso');
@@ -148,7 +148,7 @@ class TenantController extends Controller
 
     public function search(Request $request)
     {
-       
+
         $filters = $request->except('token');
 
         $tenants = $this->repository
@@ -161,6 +161,6 @@ class TenantController extends Controller
             ->paginate();
 
 
-        return view('admin.pages.tenants.index', compact('tenants','filters'));
+        return view('admin.pages.tenants.index', compact('tenants', 'filters'));
     }
 }
