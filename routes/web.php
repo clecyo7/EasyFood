@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\TenantController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -30,9 +31,18 @@ Route::prefix('admin')
     ->group(function () {
 
 
-                /**
+
+
+        /**
+         *Routes Tenant
+        */
+        Route::any('tenants/search', [TenantController::class, 'search'])->name('tenants.search');
+        Route::resource('tenants', TenantController::class);
+
+
+        /**
          *Routes Permission
-         */
+        */
         Route::any('tables/search', [TableController::class, 'search'])->name('tables.search');
         Route::resource('tables', TableController::class);
 

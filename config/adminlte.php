@@ -307,6 +307,13 @@ return [
             'text' => 'search',
         ],
         [
+            'text'        => 'Empresas ',
+            'url'         => 'admin/tenants',
+            'icon'        => 'fas fa-building',
+            'label_color' => 'success',
+          //  'can'         => 'tenants',
+        ],
+        [
             'text'        => 'Planos ',
             'url'         => 'admin/plans',
             'icon'        => 'fa fa-list-ul',

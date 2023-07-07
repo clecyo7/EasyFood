@@ -1,13 +1,14 @@
+
 @extends('adminlte::page')
 
-@section('title', 'Produtos')
+@section('title', 'Empresas')
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Produtos</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('tenants.index') }}">Produtos</a></li>
     </ol>
-    <h1>Produtos <a href="{{ route('products.create') }}" class="btn btn-dark">
+    <h1>Empresas <a href="{{ route('tenants.create') }}" class="btn btn-dark">
         <i class="far fa-plus-square"></i></a></h1>
 @stop
 
@@ -15,7 +16,7 @@
     <div class="card">
         @include('admin.incluides.alerts')
         <div class="card-header">
-            <form action="{{ route('products.search') }}" method="POST" class="form form-inline">
+            <form action="{{ route('tenants.search') }}" method="POST" class="form form-inline">
                 @csrf
                 <input type="text" name="filter" placeholder="Nome" value="{{ $filters['filter'] ?? '' }}"
                     class="form-control">
@@ -26,24 +27,24 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th style="max-width: 90px; ">Imagem</th>
-                        <th style="text-align: center">Título</th>
+                        <th style="max-width: 90px; ">Logo</th>
+                        <th style="text-align: center">Nome</th>
                         <th style="text-align: center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products as $product)
+                    @foreach ($tenants as $tenant)
                         <tr>
                             <td>
-                               <img src="{{ url("storage/{$product->image}") }}" alt="{{$product->title}}" width="130" height="100">
+                               <img src="{{ url("storage/{$tenant->image}") }}" alt="{{$tenant->name}}" width="130" height="100">
                             </td>
                             <td style="text-align: center">
-                                {{ $product->title }}
+                                {{ $tenant->name }}
                             </td>
                             <td style="text-align: center">
-                                <a href="{{ route('products.categories', $product->id) }}" class="btn btn-warning"><i class="fas fa-layer-group" aria-hidden="true"></i></a>
-                                <a href="{{ route('products.edit', $product->id) }}" class="btn btn-info"><i class="far fa-edit"> Editar</i></a>
-                                <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>
+                                {{-- <a href="{{ route('tenants.categories', $tenant->id) }}" class="btn btn-warning"><i class="fas fa-layer-group" aria-hidden="true"></i></a> --}}
+                                <a href="{{ route('tenants.edit', $tenant->id) }}" class="btn btn-info"><i class="far fa-edit"> Editar</i></a>
+                                <a href="{{ route('tenants.show', $tenant->id) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -52,9 +53,9 @@
         </div>
         <div class="card-footer">
             @if (isset($filters))
-                {{ $products->appends($filters)->links() }}
+                {{ $tenants->appends($filters)->links() }}
             @else
-                {{ $products->links() }}
+                {{ $tenants->links() }}
             @endif
         </div>
     </div>
