@@ -323,9 +323,16 @@ return [
         [
             'text'        => 'Perfis ',
             'url'         => 'admin/profiles',
-            'icon'        => 'fas fa-address-book',
+            'icon'        => 'fas fa-address-card',
             'label_color' => 'success',
             'can'         => 'profiles',
+        ],
+        [
+            'text'        => 'Cargos',
+            'url'         => 'admin/roles',
+            'icon'        => 'fas fa-address-book',
+            'label_color' => 'success',
+            'can'         => 'roles',
         ],
         [
             'text'        => 'Permissões ',

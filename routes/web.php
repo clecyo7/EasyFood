@@ -10,6 +10,8 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanProfileController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RoleUserController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TenantController;
@@ -31,7 +33,21 @@ Route::prefix('admin')
     ->group(function () {
 
 
+         /**
+         *roles Plans x users
+         */
+        Route::get('users/{id}/roles/{idRole}/detach', [RoleUserController::class, 'detachRoleUser'])->name('users.profile.detach');
+        Route::post('users/{id}/roles', [RoleUserController::class, 'attachProfilesPlan'])->name('users.roles.attch');
+        Route::any('users/{id}/roles/create', [RoleUserController::class, 'roleAvailable'])->name('users.roles.available');
+        Route::get('users/{id}/roles', [RoleUserController::class, 'roles'])->name('users.roles');
+        Route::get('roles/{id}/users', [RoleUserController::class, 'users'])->name('roles.users');
 
+
+        /**
+         *Routes Role
+        */
+        Route::any('roles/search', [RoleController::class, 'search'])->name('roles.search');
+        Route::resource('roles', RoleController::class);
 
         /**
          *Routes Tenant

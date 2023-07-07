@@ -97,7 +97,7 @@ class TenantController extends Controller
      */
     public function update(StoreUpdateTenant $request, $id)
     {
-       //  dd($request->all());
+      //  dd($request->all());
         if (!$tenant = $this->repository->find($id)) {
             return redirect()->back()
                 ->with('warning', 'Empresa não encontrada');;
@@ -116,6 +116,7 @@ class TenantController extends Controller
             $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}/tenants");
         }
 
+        $tenant->update($data);
 
         return redirect()->route('tenants.index')
             ->with('sucess', 'Empresa atualizada com sucesso');
