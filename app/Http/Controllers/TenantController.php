@@ -96,16 +96,14 @@ class TenantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StoreUpdateTenant $request, $id)
-    {
-        
-        dd($request->all());
+    {      
         if (!$tenant = $this->repository->find($id)) {
             return redirect()->back()
                 ->with('warning', 'Empresa não encontrada');;
         }
 
         $data = $request->except(['_token', '_method']);
-     //   dd($data);
+
         $tenant = auth()->user()->tenant;
 
 

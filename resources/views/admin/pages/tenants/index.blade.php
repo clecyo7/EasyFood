@@ -6,7 +6,7 @@
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('tenants.index') }}">Produtos</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('tenants.index') }}">Empresas</a></li>
     </ol>
     <h1>Empresas <a href="{{ route('tenants.create') }}" class="btn btn-dark">
         <i class="far fa-plus-square"></i></a></h1>
@@ -36,7 +36,7 @@
                     @foreach ($tenants as $tenant)
                         <tr>
                             <td>
-                               <img src="{{ url("storage/{$tenant->image}") }}" alt="{{$tenant->name}}" width="130" height="100">
+                               <img src="{{ url("storage/{$tenant->logo}") }}" alt="{{$tenant->name}}" width="80" height="60">
                             </td>
                             <td style="text-align: center">
                                 {{ $tenant->name }}
