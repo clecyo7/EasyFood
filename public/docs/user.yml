@@ -24,7 +24,35 @@ products
     permissão: relatórios
 
 
+----------------------------------------------------------------------------
+permission: fin_view
+permission: fin_cad
+permission: fin_del
+permission: prod_view
+permission: prod_cad
+permission: prod_del
+permission: pedidos
 
-roles
+----------------------------------------------------------------------------
+user: Carlos ferreira
+    Roles: admin
+        permission: fin_view
+        permission: fin_cad
+        permission: fin_del
+        permission: prod_view
+        permission: prod_cad
+        permission: prod_del
+        permission: pedidos
+    Roles: editor
+        permission: fin_view
+        permission: fin_cad
+        permission: fin_del
+    Roles: financeiro
+        permission: fin_view
+        permission: fin_cad
+        permission: fin_del
+        permission: prod_view
+        permission: prod_cad
+        permission: prod_del
+        permission: pedidos
 
-    permissões do usarios

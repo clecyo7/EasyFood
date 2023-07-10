@@ -74,4 +74,24 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+
+    /**
+     * Roles not linked with this user
+     */
+    public function rolesAvailable($filter = null)
+    {
+        $roles = Role::whereNotIn('roles.id', function($query) {
+            $query->select('role_user.role_id');
+            $query->from('role_user');
+            $query->whereRaw("role_user.user_id={$this->id}");
+        })
+        ->where(function ($queryFilter) use ($filter) {
+            if ($filter)
+                $queryFilter->where('roles.name', 'LIKE', "%{$filter}%");
+        })
+        ->paginate();
+
+        return $roles;
+    }
+
 }

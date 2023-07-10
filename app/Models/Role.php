@@ -23,22 +23,22 @@ class Role extends Model
 
     public function users()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(User::class);
     }
 
     /**
-     * Roles not linked with this user
+     * Permission not linked with this profile
      */
-    public function roleAvailable($filter = null)
+    public function permissionsAvailable($filter = null)
     {
-        $permissions = Role::whereNotIn('roles.id', function($query) {
-            $query->select('roler_user.permission_id');
-            $query->from('roler_user');
-            $query->whereRaw("roler_user.user_id={$this->id}");
+        $permissions = Permission::whereNotIn('permissions.id', function($query) {
+            $query->select('permission_role.permission_id');
+            $query->from('permission_role');
+            $query->whereRaw("permission_role.role_id={$this->id}");
         })
         ->where(function ($queryFilter) use ($filter) {
             if ($filter)
-                $queryFilter->where('roles.name', 'LIKE', "%{$filter}%");
+                $queryFilter->where('permissions.name', 'LIKE', "%{$filter}%");
         })
         ->paginate();
 

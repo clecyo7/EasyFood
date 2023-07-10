@@ -2,14 +2,36 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Tenant;
+
 trait UserACLTrait
 {
 
-    public function permissions()
+    public function permissions(): array
     {
+        //  dd($this->permissionsRole());
+        $permissionsPlan = $this->permissionsPlan();
+        $permissionsRole = $this->permissionsRole();
 
-        // puxa os relacionamentos até chegar nas permissions 
-        $tenant = $this->tenant;
+        $permissions = [];
+
+        // percorrer o arry a de permissions do cargo e verifica se está dentro do array de permissões do plano
+        foreach ($permissionsRole as $permission) {
+            if (in_array($permission, $permissionsPlan))
+                array_push($permissions, $permission);
+        }
+       // dd($permissions);
+        return $permissions;
+    }
+
+    public function permissionsPlan(): array
+    {
+        // puxa os relacionamentos até chegar nas permissions
+
+        // $tenant = $this->tenant;
+        // $plan = $tenant->plan;
+
+        $tenant = Tenant::with('plan.profiles.permissions')->where('id', $this->tenant_id)->first();
         $plan = $tenant->plan;
 
         $permissions = [];
@@ -18,6 +40,20 @@ trait UserACLTrait
                 array_push($permissions, $permission->name);
             }
         }
+        return $permissions;
+    }
+
+    public function permissionsRole(): array
+    {
+        $roles =  $this->roles()->with('permissions')->get();
+
+        $permissions = [];
+        foreach ($roles as $role) {
+            foreach ($role->permissions as $permission) {
+                array_push($permissions, $permission->name);
+            }
+        }
+
         return $permissions;
     }
 

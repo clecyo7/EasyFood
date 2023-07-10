@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DetailPlanController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionProfileController;
+use App\Http\Controllers\PermissionRoleController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanProfileController;
 use App\Http\Controllers\ProductsController;
@@ -33,32 +34,50 @@ Route::prefix('admin')
     ->group(function () {
 
 
-         /**
+
+        /**
+         * Permission x Role
+         */
+
+         Route::get('roles/{id}/permission/{idRole}/detach', [PermissionRoleController::class, 'detachPermissionRole'])->name('roles.permission.detach');
+         Route::post('roles/{id}/permissions', [PermissionRoleController::class, 'attachPermissionsRole'])->name('roles.permissions.attach');
+         Route::any('roles/{id}/permissions/create', [PermissionRoleController::class, 'permissionsAvailable'])->name('roles.permissions.available');
+         Route::get('roles/{id}/permissions', [PermissionRoleController::class, 'permissions'])->name('roles.permissions');
+         Route::get('permissions/{id}/role', [PermissionRoleController::class, 'roles'])->name('permissions.roles');
+
+
+        // Route::get('roles/{id}/permission/{idPermission}/detach', [PermissionRoleController::class, 'detachPermissionRole'])->name('roles.permission.detach');
+        // Route::get('roles/{id}/permissions', [PermissionRoleController::class, 'attachPermissionsRole'])->name('roles.permissions.attach');
+        // Route::any('roles/{id}/permissions/create', [PermissionRoleController::class, 'permissionsAvailable'])->name('roles.permissions.available');
+        // Route::get('roles/{id}/permissions', [PermissionRoleController::class, 'permissions'])->name('roles.permissions');
+        // Route::get('permissions/{id}/role', [PermissionRoleController::class, 'roles'])->name('permissions.roles');
+
+        /**
          *roles Plans x users
          */
-        Route::get('users/{id}/roles/{idRole}/detach', [RoleUserController::class, 'detachRoleUser'])->name('users.profile.detach');
-        Route::post('users/{id}/roles', [RoleUserController::class, 'attachProfilesPlan'])->name('users.roles.attch');
-        Route::any('users/{id}/roles/create', [RoleUserController::class, 'roleAvailable'])->name('users.roles.available');
+        Route::get('users/{id}/role/{idRole}/detach', [RoleUserController::class, 'detachRoleUser'])->name('users.role.detach');
+        Route::post('users/{id}/roles', [RoleUserController::class, 'attachRolesUser'])->name('users.roles.attch');
+        Route::any('users/{id}/roles/create', [RoleUserController::class, 'rolesAvailable'])->name('users.roles.available');
         Route::get('users/{id}/roles', [RoleUserController::class, 'roles'])->name('users.roles');
         Route::get('roles/{id}/users', [RoleUserController::class, 'users'])->name('roles.users');
 
 
         /**
          *Routes Role
-        */
+         */
         Route::any('roles/search', [RoleController::class, 'search'])->name('roles.search');
         Route::resource('roles', RoleController::class);
 
         /**
          *Routes Tenant
-        */
+         */
         Route::any('tenants/search', [TenantController::class, 'search'])->name('tenants.search');
         Route::resource('tenants', TenantController::class);
 
 
         /**
          *Routes Permission
-        */
+         */
         Route::any('tables/search', [TableController::class, 'search'])->name('tables.search');
         Route::resource('tables', TableController::class);
 
@@ -96,7 +115,7 @@ Route::prefix('admin')
         Route::any('users/search', [UserController::class, 'search'])->name('users.search');
         Route::resource('users', UserController::class);
 
-         /**
+        /**
          *Routes Categories
          */
         Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
@@ -108,13 +127,13 @@ Route::prefix('admin')
         Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
         Route::resource('profiles', ProfileController::class);
 
-         /**
+        /**
          *Routes Products
          */
         Route::any('products/search', [ProductsController::class, 'search'])->name('products.search');
         Route::resource('products', ProductsController::class);
 
-         /**
+        /**
          *Routes Category x Product
          */
         Route::get('products/{id}/category/{idCategory}/detach', [CategoryProductController::class, 'detachCategoryProduct'])->name('products.category.detach');
@@ -150,10 +169,10 @@ Route::prefix('admin')
         Route::get('profiles/{id}/plans', [PlanProfileController::class, 'plans'])->name('profiles.plans');
     });
 
-    /**
-    *Routes Sites
-    */
-    Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('plan.subscription');
-    Route::get('/', [SiteController::class, 'index'])->name('site.home');
+/**
+ *Routes Sites
+ */
+Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('plan.subscription');
+Route::get('/', [SiteController::class, 'index'])->name('site.home');
 
 require __DIR__ . '/auth.php';

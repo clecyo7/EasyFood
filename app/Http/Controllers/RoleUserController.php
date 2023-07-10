@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,14 +17,15 @@ class RoleUserController extends Controller
         $this->role = $role;
 
         $this->middleware(['can:users']);
-
-       // $this->middleware(['can:users']);
     }
 
     public function roles($idUser)
     {
-        if (!$user = $this->user->find($idUser)) {
-            return redirect()->back();
+        $user = $this->user->find($idUser);
+
+        if (!$user) {
+            return redirect()->back()
+            ->with('warning', 'Usuário não encontrado');
         }
         $roles = $user->roles()->paginate();
 
@@ -34,7 +36,8 @@ class RoleUserController extends Controller
     public function users($idRole)
     {
         if (!$role = $this->role->find($idRole)) {
-            return redirect()->back();
+            return redirect()->back()
+            ->with('warning', 'Cargo não encontrado');
         }
 
         $users = $role->users()->paginate();
@@ -43,25 +46,26 @@ class RoleUserController extends Controller
     }
 
 
-    public function roleAvailable(Request $request, $idUser)
+    public function rolesAvailable(Request $request, $idUser)
     {
         if (!$user = $this->user->find($idUser)) {
-            return redirect()->back();
+            return redirect()->back()
+            ->with('warning', 'Usuário não encontrado');
         }
 
         $filters = $request->except('_token');
 
-        $roles = $user->roleAvailable($request->filter);
+        $roles = $user->rolesAvailable($request->filter);
 
         return view('admin.pages.users.roles.available', compact('user', 'roles', 'filters'));
     }
 
 
-    public function attachRoleUser(Request $request, $idUser)
+    public function attachRolesUser(Request $request, $idUser)
     {
         if (!$user = $this->user->find($idUser)) {
             return redirect()->back()
-            ->with('warning', 'Usero não encontrado');
+            ->with('warning', 'Usuário não encontrado');
         }
 
         if (!$request->roles || count($request->roles) == 0) {
@@ -72,7 +76,8 @@ class RoleUserController extends Controller
 
         $user->roles()->attach($request->roles);
 
-        return redirect()->route('users.roles', $user->id);
+        return redirect()->route('users.roles', $user->id)
+        ->with('sucess', 'Cargo atribuido com sucesso');
     }
 
     public function detachRoleUser($idUser, $idRole)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\TenantCreated;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -30,7 +31,7 @@ class RegisteredUserController extends Controller
                 'name'     => ['required', 'string', 'max:255'],
                 'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-              //  'cnpj'     => ['required', 'numeric', 'cnpj', 'unique:tenants'],
+                //  'cnpj'     => ['required', 'numeric', 'cnpj', 'unique:tenants'],
                 'empresa'  => ['required', 'string', 'min:3', 'max:255', 'unique:tenants,name'],
             ],
             [
@@ -62,7 +63,7 @@ class RegisteredUserController extends Controller
             'cnpj'  => $request->cnpj,
             'name'  => $request->empresa,
             'email' => $request->email,
-           // 'url'   => Str::kebab($request->empresa), criado observer uui
+            // 'url'   => Str::kebab($request->empresa), criado observer uui
             'subscription' => now(),
             'expires_at' => now()->addDays(7),
         ]);
@@ -78,6 +79,7 @@ class RegisteredUserController extends Controller
         //  $user = $tenantService->make($plan, $request);
 
         event(new Registered($user));
+        event(new TenantCreated($user));
 
         Auth::login($user);
 
