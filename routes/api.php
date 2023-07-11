@@ -18,19 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group([
+    'prefix' => 'v1',
+    'namespace' => 'Api'
+], function () {
+    Route::get('products/{flag}', [ProductApiController::class, 'show']);
+    Route::get('products', [ProductApiController::class, 'productsByTenant']);
 
-Route::get('products/{flag}', [ProductApiController::class, 'show']);
-Route::get('products', [ProductApiController::class, 'productsByTenant']);
+    Route::get('tables/{identify}', [TableApiController::class, 'show']);
+    Route::get('tables', [TableApiController::class, 'tablesByTenant']);
 
-Route::get('tables/{identify}', [TableApiController::class, 'show']);
-Route::get('tables', [TableApiController::class, 'tablesByTenant']);
+    Route::get('tenants', [TenantApiController::class, 'index']);
+    Route::get('tenants/{uuid}', [TenantApiController::class, 'show']);
 
-Route::get('tenants', [TenantApiController::class, 'index']);
-Route::get('tenants/{uuid}', [TenantApiController::class, 'show']);
-
-Route::get('categories', [CategoryApiController::class, 'gategoriesByTenant']);
-Route::get('categories/{uuid}', [CategoryApiController::class, 'show']);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::get('categories', [CategoryApiController::class, 'gategoriesByTenant']);
+    Route::get('categories/{uuid}', [CategoryApiController::class, 'show']);
 });
+
+
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
