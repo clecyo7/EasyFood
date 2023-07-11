@@ -4,7 +4,7 @@ namespace App\Repositories\Contracts;
 
 interface CategoryRepositoryInterface
 {
-    public function gategoriesByTenantUuid(string $uuid);
+    public function getCategoriesByTenantUuid(string $uuid);
 
     public function getCategoriesByTenantId(string $uuid);
 

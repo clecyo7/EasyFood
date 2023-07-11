@@ -16,7 +16,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->table = 'categories';
     }
 
-    public function gategoriesByTenantUuid(string $uuid)
+    public function getCategoriesByTenantUuid(string $uuid)
     {
 
         return DB::table($this->table)
@@ -35,4 +35,5 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         return DB::table($this->table)->where('url', $url)->first();
     }
+
 }
