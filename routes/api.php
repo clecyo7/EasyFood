@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryApiController;
+use App\Http\Controllers\Api\TenantApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('tenants', [TenantApiController::class, 'index']);
+Route::get('tenants/{uuid}', [TenantApiController::class, 'show']);
+
+Route::get('categories', [CategoryApiController::class, 'gategoriesByTenant']);
+Route::get('categories/{uuid}', [CategoryApiController::class, 'show']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

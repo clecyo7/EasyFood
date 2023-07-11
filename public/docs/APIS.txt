@@ -1,0 +1,10 @@
+APIS
+
+routes/api.php
+
+Controllers
+    Form Request
+    Resources
+    Service layers
+    Reposotories
+
