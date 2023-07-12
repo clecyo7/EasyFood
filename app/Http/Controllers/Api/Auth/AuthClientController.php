@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers\Api\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ClientResource;
+use App\Models\Client;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+class AuthClientController extends Controller
+{
+     /**
+     * gerando token para usuário
+     */
+    public function auth(Request $request)
+    {
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'device_name' => 'required'
+        ]);
+
+
+        $client = Client::where('email', $request->email)->first();
+
+        /**
+         * verifica se o cliente existe e se a senha dele é a mesma cadastrada no db.
+         */
+
+        if (!$client || !Hash::check($request->password, $client->password)) {
+            return response()->json(['messages.invalid_credentials'], 404);
+        }
+
+        $token =  $client->createToken($request->device_name)->plainTextToken;
+
+        return response()->json(['token', $token]);
+    }
+
+    /**
+     * recuperar user logado
+     */
+    public function me(Request $request)
+    {
+        $client = $request->user();
+
+        return new ClientResource($client);
+    }
+
+    public function logout(Request $request)
+    {
+        $client = $request->user();
+
+        // Revoke all tokens client...
+        $client->tokens()->delete();
+
+        return response()->json([], 204);
+    }
+}

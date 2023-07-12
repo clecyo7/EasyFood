@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthClientController;
+use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\CategoryApiController;
 use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Api\TableApiController;
 use App\Http\Controllers\Api\TenantApiController;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +21,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('teste', function() {
+//     $client = Client::first();
+
+//    $token =  $client->createToken('token-teste');
+//    dd($token->plainTextToken);
+// });
+
+Route::post('/sanctum/token', [AuthClientController::class, 'auth']);
+
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::get('/auth/me', [AuthClientController::class, 'me']);
+    Route::post('/auth/logout', [AuthClientController::class, 'logout']);
+});
+
+
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'Api'
 ], function () {
+
+    Route::post('client', [RegisterController::class, 'store']);
+    Route::get('client/{idClient}', [RegisterController::class, 'show']);
+    Route::get('client', [RegisterController::class, 'index']);
+
+
     Route::get('products/{flag}', [ProductApiController::class, 'show']);
     Route::get('products', [ProductApiController::class, 'productsByTenant']);
 
