@@ -48,7 +48,7 @@ Route::group([
     Route::get('client', [RegisterController::class, 'index']);
 
 
-    Route::get('products/{flag}', [ProductApiController::class, 'show']);
+    Route::get('products/{identify}', [ProductApiController::class, 'show']);
     Route::get('products', [ProductApiController::class, 'productsByTenant']);
 
     Route::get('tables/{identify}', [TableApiController::class, 'show']);
@@ -58,7 +58,7 @@ Route::group([
     Route::get('tenants/{uuid}', [TenantApiController::class, 'show']);
 
     Route::get('categories', [CategoryApiController::class, 'gategoriesByTenant']);
-    Route::get('categories/{uuid}', [CategoryApiController::class, 'show']);
+    Route::get('categories/{identify}', [CategoryApiController::class, 'show']);
 });
 
 

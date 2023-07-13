@@ -2,16 +2,23 @@
 
 namespace App\Providers;
 
-use App\Models\Category;
-use App\Models\Plan;
-use App\Models\Product;
-use App\Models\Table;
-use App\Models\Tenant;
-use App\Observers\CategoryObserver;
-use App\Observers\PlanObserver;
-use App\Observers\ProductObserver;
-use App\Observers\TableObserver;
-use App\Observers\TenantObserver;
+use App\Models\{
+    Category,
+    Client,
+    Plan,
+    Product,
+    Table,
+    Tenant
+};
+use App\Observers\{
+    CategoryObserver,
+    ClientObserver,
+    PlanObserver,
+    ProductObserver,
+    TableObserver,
+    TenantObserver
+};
+
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -40,5 +47,6 @@ class AppServiceProvider extends ServiceProvider
         Category::observe(CategoryObserver::class);
         Product::observe(ProductObserver::class);
         Table::observe(TableObserver::class);
+        Client::observe(ClientObserver::class);
     }
 }
