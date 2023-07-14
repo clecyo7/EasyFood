@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\AuthClientController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\CategoryApiController;
+use App\Http\Controllers\Api\OrderApiController;
 use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Api\TableApiController;
 use App\Http\Controllers\Api\TenantApiController;
@@ -42,6 +43,10 @@ Route::group([
     'prefix' => 'v1',
     'namespace' => 'Api'
 ], function () {
+
+    Route::post('/orders',[OrderApiController::class , 'store']);
+    Route::post('/orders{identify}',[OrderApiController::class , 'show']);
+
 
     Route::post('client', [RegisterController::class, 'store']);
     Route::get('client/{idClient}', [RegisterController::class, 'show']);
