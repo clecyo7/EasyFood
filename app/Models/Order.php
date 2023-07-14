@@ -29,4 +29,8 @@ class Order extends Model
     public function products() {
         return $this->belongsToMany(Product::class);
     }
+
+    public function evaluations() {
+        return $this->hasMany(Evaluation::class);
+    }
 }
