@@ -45,6 +45,10 @@ class OrderService
 
         );
 
+ 
+
+        $this->orderRepository->registerProductsOrder($order->id, $productsOrder);
+
         return $order;
     }
 
@@ -65,7 +69,8 @@ class OrderService
 
         $identify = substr(str_shuffle($characters), 0, $qtyCaraceters);
 
-        if ($this->orderRepository->getOrderByIdentify($identify)) {
+        if ($this->orderRepository->getOrderByIdentify($identify)) 
+        {
             $this->getIdentifyOrder($qtyCaraceters + 1);
         }
 
@@ -136,8 +141,24 @@ class OrderService
         return auth()->check() ? auth()->user()->id : '';
     }
 
+    /**
+     * cadastrar pedido
+     */
+
+    public function registerProductsOrder(int $orderId, array $products)
+    {
+
+    }
+
     public function getOrderByIdentify(string $identify)
     {
         return $this->orderRepository->getOrderByIdentify($identify);
+    }
+
+    public function orderByClient()
+    {
+        $idClient = $this->getClientIdByOrder();
+
+        return $this->orderRepository->getClientIdByOrder($idClient);
     }
 }

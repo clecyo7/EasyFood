@@ -42,10 +42,51 @@ class OrderRepository implements OrderRepositoryInterface
         return $order;
     }
 
+     /**
+     * cadastrar pedido
+     */
+
+    public function registerProductsOrder(int $orderId, array $products)
+    {
+
+        $order = $this->entity->find($orderId);
+        $orderProducts = [];
+
+        foreach($products as $product) {
+            $orderProducts[$product['id']] = [
+                'qty' => $product['qty'],
+                'price' => $product['price'],
+            ];
+        }
+
+        $order->products()->attach($orderProducts);
+
+        // $orderProducts = [];
+        // foreach($products as $product) {
+        //     array_push($orderProducts, [
+        //         'order_id' => $orderId,
+        //         'product_id' => $product['id'],
+        //         'qty' => $product['qty'],
+        //         'price' => $product['price'],
+        //     ]);
+        // }
+
+        // DB::table('order_product')->insert($orderProducts);
+
+    }
+
     public function getOrderByIdentify(string $identify)
     {
+      //  dd($identify);
         return $this->entity
             ->where('identify', $identify)
             ->first();
     }
+
+    public function getClientIdByOrder(int $idClient)
+    {
+
+        return $this->entity->where('client_id', $idClient)->paginate();
+    }
+
 }

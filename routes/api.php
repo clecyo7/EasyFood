@@ -36,6 +36,9 @@ Route::group([
 ], function () {
     Route::get('/auth/me', [AuthClientController::class, 'me']);
     Route::post('/auth/logout', [AuthClientController::class, 'logout']);
+
+    Route::post('/auth/v1/orders',[OrderApiController::class , 'store']);
+    Route::get('auth/v1/my-orders',[OrderApiController::class , 'myOrders']);
 });
 
 
@@ -45,7 +48,7 @@ Route::group([
 ], function () {
 
     Route::post('/orders',[OrderApiController::class , 'store']);
-    Route::post('/orders{identify}',[OrderApiController::class , 'show']);
+    Route::get('/orders/{identify}',[OrderApiController::class , 'show']);
 
 
     Route::post('client', [RegisterController::class, 'store']);
