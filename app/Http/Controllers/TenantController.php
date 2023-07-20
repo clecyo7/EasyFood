@@ -97,7 +97,7 @@ class TenantController extends Controller
      */
     public function update(StoreUpdateTenant $request, $id)
     {
-      //  dd($request->all());
+
         if (!$tenant = $this->repository->find($id)) {
             return redirect()->back()
                 ->with('warning', 'Empresa não encontrada');;

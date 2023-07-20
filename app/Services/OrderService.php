@@ -45,7 +45,7 @@ class OrderService
 
         );
 
- 
+
 
         $this->orderRepository->registerProductsOrder($order->id, $productsOrder);
 
@@ -69,7 +69,7 @@ class OrderService
 
         $identify = substr(str_shuffle($characters), 0, $qtyCaraceters);
 
-        if ($this->orderRepository->getOrderByIdentify($identify)) 
+        if ($this->orderRepository->getOrderByIdentify($identify))
         {
             $this->getIdentifyOrder($qtyCaraceters + 1);
         }
@@ -81,7 +81,7 @@ class OrderService
     private function getProductsByOrder(array $productsOrder): array
     {
         $products = [];
-        //   dd($productsOrder);
+
         foreach ($productsOrder as $productOrder) {
             $product = $this->productRepository->getProductByUuid($productOrder['identify']);
 
@@ -91,7 +91,7 @@ class OrderService
                 'price' => $product->price,
             ]);
         }
-        //dd($products);
+
         return $products;
     }
 

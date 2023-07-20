@@ -30,7 +30,8 @@ use Illuminate\Support\Facades\Route;
 //    dd($token->plainTextToken);
 // });
 
-Route::post('/sanctum/token', [AuthClientController::class, 'auth']);
+Route::post('auth/register', [RegisterController::class, 'store']);
+Route::post('/auth/token', [AuthClientController::class, 'auth']);
 
 Route::group([
     'middleware' => ['auth:sanctum']
@@ -49,26 +50,23 @@ Route::group([
     'namespace' => 'Api'
 ], function () {
 
-    Route::post('/orders',[OrderApiController::class , 'store']);
-    Route::get('/orders/{identify}',[OrderApiController::class , 'show']);
-
-
-    Route::post('client', [RegisterController::class, 'store']);
     Route::get('client/{idClient}', [RegisterController::class, 'show']);
     Route::get('client', [RegisterController::class, 'index']);
-
-
-    Route::get('products/{identify}', [ProductApiController::class, 'show']);
-    Route::get('products', [ProductApiController::class, 'productsByTenant']);
-
-    Route::get('tables/{identify}', [TableApiController::class, 'show']);
-    Route::get('tables', [TableApiController::class, 'tablesByTenant']);
 
     Route::get('tenants', [TenantApiController::class, 'index']);
     Route::get('tenants/{uuid}', [TenantApiController::class, 'show']);
 
     Route::get('categories', [CategoryApiController::class, 'gategoriesByTenant']);
     Route::get('categories/{identify}', [CategoryApiController::class, 'show']);
+
+    Route::get('tables/{identify}', [TableApiController::class, 'show']);
+    Route::get('tables', [TableApiController::class, 'tablesByTenant']);
+
+    Route::get('products/{identify}', [ProductApiController::class, 'show']);
+    Route::get('products', [ProductApiController::class, 'productsByTenant']);
+
+    Route::post('/orders',[OrderApiController::class , 'store']);
+    Route::get('/orders/{identify}',[OrderApiController::class , 'show']);
 });
 
 

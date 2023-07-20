@@ -30,7 +30,7 @@ class AuthClientController extends Controller
          */
 
         if (!$client || !Hash::check($request->password, $client->password)) {
-            return response()->json(['messages.invalid_credentials'], 404);
+            return response()->json(['messages' => trans('messages.invalid_credentials')], 404);
         }
 
         $token =  $client->createToken($request->device_name)->plainTextToken;

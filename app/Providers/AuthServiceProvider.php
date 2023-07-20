@@ -27,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        if ($this->app->runningInConsole()) return;
         //recuperar as permissões
         $permissions = Permission::all();
 
@@ -35,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
                 return $user->hasPermission($permission->name);
             });
         }
-        
+
         Gate::define('owner', function(User $user, $object) {
                 return $user->id === $object->user_id;
         });

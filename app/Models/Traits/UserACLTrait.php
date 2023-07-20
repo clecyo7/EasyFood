@@ -20,7 +20,7 @@ trait UserACLTrait
             if (in_array($permission, $permissionsPlan))
                 array_push($permissions, $permission);
         }
-       // dd($permissions);
+
         return $permissions;
     }
 

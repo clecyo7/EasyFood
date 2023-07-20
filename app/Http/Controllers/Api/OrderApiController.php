@@ -28,7 +28,6 @@ class OrderApiController extends Controller
 
     public function show($identify)
     {
-     //   dd($identify);
         if(!$order = $this->orderService->getOrderByIdentify($identify)){
             return response()->json(['message' => 'Order Not Found'], 404);
         }

@@ -20,19 +20,19 @@ class EvaluationService
         $this->orderRepository = $order;
     }
 
-  
+
     public function createNewEvaluation(string $identifyOrder, array $evaluation)
     {
-      //  dd($identifyOrder, $evaluation);
+
         $clientId = $this->getIdClient();
         $order = $this->orderRepository->getOrderByIdentify($identifyOrder);
 
-    //    dd($order->identify);
+
         return $this->evaluationRepository->createNewEvaluation($order->id, $clientId, $evaluation);
     }
 
     private function getIdClient()
-    { 
+    {
         return auth()->user()->id;
     }
 
