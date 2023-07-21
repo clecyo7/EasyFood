@@ -30,6 +30,11 @@ use Illuminate\Support\Facades\Route;
 //    dd($token->plainTextToken);
 // });
 
+Route::get('/', function() {
+    return response()->json(['message' => 'ok']);
+});
+
+
 Route::post('auth/register', [RegisterController::class, 'store']);
 Route::post('/auth/token', [AuthClientController::class, 'auth']);
 
