@@ -26,17 +26,17 @@ class Evaluationtest extends TestCase
     }
 
 
-    /**
+       /**
      * Test Create New Evaluation
      *
      * @return void
      */
     public function testCreateNewEvaluation()
     {
-        $client = factory(Client::class)->create();
+        $client = Client::factory()->create();
         $token = $client->createToken(Str::random(10))->plainTextToken;
 
-        $order = $client->orders()->save(factory(Order::class)->make());
+        $order = $client->orders()->save(Order::factory()->make());
 
         $payload = [
             'stars' => 5,
