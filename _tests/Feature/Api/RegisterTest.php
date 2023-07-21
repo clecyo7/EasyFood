@@ -17,19 +17,19 @@ class RegisterTest extends TestCase
     public function testErrorCreateNewClient()
     {
         $payload = [
-            'name' => 'Carlos Client',
-            'email' => 'carlos@client.com.br',
+            'name' => 'Clecyo Client',
+            'email' => 'clecyo@client.com.br',
         ];
 
         $response = $this->postJson('/api/auth/register', $payload);
 
-        $response->assertStatus(422);
-                    // ->assertExactJson([
-                    //     'message' => 'The given data was invalid.',
-                    //     'errors' => [
-                    //         'password' => [trans('validation.required', ['attribute' => 'password'])]
-                    //     ]
-                    // ]);
+        $response->assertStatus(422)
+                    ->assertExactJson([
+                        'message' => 'The given data was invalid.',
+                        'errors' => [
+                            'password' => [trans('validation.required', ['attribute' => 'password'])]
+                        ]
+                    ]);
     }
 
 
@@ -41,8 +41,8 @@ class RegisterTest extends TestCase
     public function testSuccessCreateNewClient()
     {
         $payload = [
-            'name' => 'Carlos Client',
-            'email' => 'carlos@client.com.br',
+            'name' => 'Clecyo Client',
+            'email' => 'clecyo@client.com.br',
             'password' => '123456',
         ];
 

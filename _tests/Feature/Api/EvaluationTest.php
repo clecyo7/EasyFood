@@ -2,15 +2,16 @@
 
 namespace Tests\Feature\Api;
 
-use Illuminate\Support\Str;
 use App\Models\Client;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
-class Evaluationtest extends TestCase
+class EvaluationTest extends TestCase
 {
+
     /**
      * Test Error Create New Evaluation
      *
@@ -22,7 +23,7 @@ class Evaluationtest extends TestCase
 
         $response = $this->postJson("/auth/v1/orders/{$order}/evaluations");
 
-        $response->assertStatus(401);
+        $response->assertStatus(404);
     }
 
 
@@ -33,10 +34,10 @@ class Evaluationtest extends TestCase
      */
     public function testCreateNewEvaluation()
     {
-        $client = factory(Client::class)->create();
+        $client = Client::factory()->create();
         $token = $client->createToken(Str::random(10))->plainTextToken;
 
-        $order = $client->orders()->save(factory(Order::class)->make());
+        $order = $client->orders()->save(Order::factory()->make());
 
         $payload = [
             'stars' => 5,

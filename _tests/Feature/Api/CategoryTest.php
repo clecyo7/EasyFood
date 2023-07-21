@@ -29,7 +29,7 @@ class CategoryTest extends TestCase
      */
     public function testGetAllCategoriesByTenant()
     {
-        $tenant = factory(Tenant::class)->create();
+        $tenant = Tenant::factory()->create();
 
         $response = $this->getJson("/api/v1/categories?token_company={$tenant->uuid}");
 
@@ -44,7 +44,8 @@ class CategoryTest extends TestCase
     public function testErrorGetCategoryByTenant()
     {
         $category = 'fake_value';
-        $tenant = factory(Tenant::class)->create();
+
+        $tenant = Tenant::factory()->create();
 
         $response = $this->getJson("/api/v1/categories/{$category}?token_company={$tenant->uuid}");
 
@@ -58,8 +59,9 @@ class CategoryTest extends TestCase
      */
     public function testGetCategoryByTenant()
     {
-        $category = factory(Category::class)->create();
-        $tenant = factory(Tenant::class)->create();
+        $category = Category::factory()->create();
+
+        $tenant = Tenant::factory()->create();
 
         $response = $this->getJson("/api/v1/categories/{$category->uuid}?token_company={$tenant->uuid}");
 

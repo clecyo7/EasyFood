@@ -31,7 +31,7 @@ class ProductTest extends TestCase
      */
     public function testGetAllProducts()
     {
-        $tenant = factory(Tenant::class)->create();
+        $tenant = Tenant::factory()->create();
 
         $response = $this->getJson("/api/v1/products?token_company={$tenant->uuid}");
 
@@ -45,7 +45,7 @@ class ProductTest extends TestCase
      */
     public function testNotFoundProduct()
     {
-        $tenant = factory(Tenant::class)->create();
+        $tenant = Tenant::factory()->create();
         $product = 'fake_value';
 
         $response = $this->getJson("/api/v1/products/{$product}?token_company={$tenant->uuid}");
@@ -60,8 +60,8 @@ class ProductTest extends TestCase
      */
     public function testGetProductByIdentify()
     {
-        $tenant = factory(Tenant::class)->create();
-        $product = factory(Product::class)->create();
+        $tenant = Tenant::factory()->create();
+        $product = Product::factory()->create();
 
         $response = $this->getJson("/api/v1/products/{$product->uuid}?token_company={$tenant->uuid}");
 

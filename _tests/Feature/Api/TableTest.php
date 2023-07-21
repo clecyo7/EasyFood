@@ -29,8 +29,8 @@ class TableTest extends TestCase
      */
     public function testGetAllTablesByTenant()
     {
-        $tenant = factory(Tenant::class)->create();
 
+        $tenant = Tenant::factory()->create();
         $response = $this->getJson("/api/v1/tables?token_company={$tenant->uuid}");
 
         $response->assertStatus(200);
@@ -44,7 +44,8 @@ class TableTest extends TestCase
     public function testErrorGetTableByTenant()
     {
         $table = 'fake_value';
-        $tenant = factory(Tenant::class)->create();
+
+        $tenant = Tenant::factory()->create();
 
         $response = $this->getJson("/api/v1/tables/{$table}?token_company={$tenant->uuid}");
 
@@ -58,8 +59,8 @@ class TableTest extends TestCase
      */
     public function testGetTableByTenant()
     {
-        $table = factory(Table::class)->create();
-        $tenant = factory(Tenant::class)->create();
+        $table = Table::factory()->create();
+        $tenant = Tenant::factory()->create();
 
         $response = $this->getJson("/api/v1/tables/{$table->uuid}?token_company={$tenant->uuid}");
 
