@@ -22,7 +22,7 @@ class Evaluationtest extends TestCase
 
         $response = $this->postJson("/auth/v1/orders/{$order}/evaluations");
 
-        $response->assertStatus(401);
+        $response->assertStatus(404);
     }
 
 
