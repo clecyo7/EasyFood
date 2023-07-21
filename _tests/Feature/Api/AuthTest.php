@@ -38,9 +38,10 @@ class AuthTest extends TestCase
         $response = $this->postJson('/api/auth/token', $payload);
 
         $response->assertStatus(404);
-                    // ->assertExactJson([
-                    //     'message' => trans('messages.invalid_credentials')
-                    // ]);
+        // $response->assertStatus(404)
+        //             ->assertExactJson([
+        //                 'message' => trans('messages.invalid_credentials')
+        //             ]);
     }
 
     /**
@@ -50,7 +51,7 @@ class AuthTest extends TestCase
      */
     public function testAuthSuccess()
     {
-        $client = factory(Client::class)->create();
+        $client = Client::factory()->create();
 
         $payload = [
             'email' => $client->email,
@@ -83,7 +84,7 @@ class AuthTest extends TestCase
      */
     public function testGetMe()
     {
-        $client = factory(Client::class)->create();
+        $client = Client::factory()->create();
         $token = $client->createToken(Str::random(10))->plainTextToken;
 
         $response = $this->getJson('/api/auth/me', [
@@ -106,7 +107,7 @@ class AuthTest extends TestCase
      */
     public function testLogout()
     {
-        $client = factory(Client::class)->create();
+        $client = Client::factory()->create();
         $token = $client->createToken(Str::random(10))->plainTextToken;
 
         $response = $this->postJson('/api/auth/logout', [], [

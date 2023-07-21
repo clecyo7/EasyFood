@@ -1,30 +1,15 @@
 <?php
 
-namespace Database\Factories;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Models\Category;
 use App\Models\Tenant;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Faker\Generator as Faker;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Caterogy>
- */
-class CategoryFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition()
-    {
-        return [
-            'tenant_id' => Tenant::factory(),
-            'name' => $this->faker->unique()->name,
-            'description' => $this->faker->sentence,
-        ];
-    }
-}
-
-
-
+$factory->define(Category::class, function (Faker $faker) {
+    return [
+        'tenant_id' => factory(Tenant::class),
+        'name' => $faker->unique()->name,
+        'description' => $faker->sentence,
+    ];
+});

@@ -1,32 +1,16 @@
 <?php
 
-namespace Database\Factories;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Plan;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Tenant;
+use Faker\Generator as Faker;
 
-
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tenant>
- */
-class TenantFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition()
-    {
-        return [
-            'plan_id' => Plan::factory(),
-            'cnpj' => uniqid() . date('YmdHis'),
-            'name' => $this->faker->unique()->name,
-            'email' => $this->faker->unique()->safeEmail,
-        ];
-    }
-}
-
-
-
-
+$factory->define(Tenant::class, function (Faker $faker) {
+    return [
+        'plan_id' => factory(Plan::class),
+        'cnpj' => uniqid() . date('YmdHis'),
+        'name' => $faker->unique()->name,
+        'email' => $faker->unique()->safeEmail,
+    ];
+});
