@@ -32,4 +32,8 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
+    - name:  Permissions 
+      run: composer dump-autoload 
+    - name:  test    
       run: php artisan test
+    
