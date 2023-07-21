@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUpdateTenant;
+use App\Http\Requests\UpdateTenant;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,7 @@ class TenantController extends Controller
     {
         $this->repository = $tenant;
 
-        //    $this->middleware(['can:tenants']);
+            $this->middleware(['can:tenants']);
     }
     /**
      * Display a listing of the resource.
@@ -97,29 +98,25 @@ class TenantController extends Controller
      */
     public function update(StoreUpdateTenant $request, $id)
     {
-
         if (!$tenant = $this->repository->find($id)) {
-            return redirect()->back()
-                ->with('warning', 'Empresa não encontrada');;
+            return redirect()->back();
         }
 
-        $data = $request->except(['_token', '_method']);
-
-        $tenant = auth()->user()->tenant;
-
+        $data = $request->all();
 
         if ($request->hasFile('logo') && $request->logo->isValid()) {
 
             if (Storage::exists($tenant->logo)) {
                 Storage::delete($tenant->logo);
             }
-            $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}/tenants");
+
+            $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}");
         }
 
         $tenant->update($data);
 
         return redirect()->route('tenants.index')
-            ->with('sucess', 'Empresa atualizada com sucesso');
+        ->with('sucess', 'Empresa atualizada com sucesso');
     }
 
     /**

@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Easy</b>Food',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'imgs/larafood-icon.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -291,6 +291,7 @@ return [
 
     'menu' => [
         // Navbar items:
+
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
@@ -307,11 +308,16 @@ return [
             'text' => 'search',
         ],
         [
+            'text' => 'Home',
+            'url'  => 'admin',
+            'icon' => 'fas fa-tachometer-alt',
+        ],
+        [
             'text'        => 'Empresas ',
             'url'         => 'admin/tenants',
             'icon'        => 'fas fa-building',
             'label_color' => 'success',
-          //  'can'         => 'tenants',
+            'can'         => 'tenants',
         ],
         [
             'text'        => 'Planos ',

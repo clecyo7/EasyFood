@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryProductController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DetailPlanController;
 use App\Http\Controllers\PermissionController;
@@ -29,11 +30,14 @@ use App\Http\Controllers\UserController;
 |
 */
 
+
 Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
 
-
+        // Route::get('test', function () {
+        //     dd(auth()->user()->hasPermissionRole());
+        // });
 
         /**
          * Permission x Role
@@ -109,7 +113,7 @@ Route::prefix('admin')
          * Home Dashboard
          */
 
-        Route::get('/', [PlanController::class, 'index'])->name('admin.index');
+        Route::get('/', [DashboardController::class, 'home'])->name('admin.index');
 
         /**
          *Routes Users

@@ -13,7 +13,7 @@
     <h1>Categorias <a href="{{ route('categories.create') }}" class="btn btn-dark">
         <i class="far fa-plus-square"></i></a></h1>
     @endcan
-    
+
 @stop
 
 @section('content')
@@ -46,7 +46,9 @@
                                 {{ $category->description }}
                             </td>
                             <td>
+                                @can('edit')
                                 <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info"><i class="far fa-edit"> Editar</i></a>
+                                @endcan
                                 <a href="{{ route('categories.show', $category->id) }}" class="btn btn-warning"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>
                             </td>
                         </tr>

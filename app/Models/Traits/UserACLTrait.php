@@ -6,16 +6,15 @@ use App\Models\Tenant;
 
 trait UserACLTrait
 {
-
     public function permissions(): array
     {
-        //  dd($this->permissionsRole());
         $permissionsPlan = $this->permissionsPlan();
         $permissionsRole = $this->permissionsRole();
 
+        //dd($permissionsRole);
         $permissions = [];
 
-        // percorrer o arry a de permissions do cargo e verifica se está dentro do array de permissões do plano
+        // percorrer o array a de permissions do cargo e verifica se está dentro do array de permissões do plano
         foreach ($permissionsRole as $permission) {
             if (in_array($permission, $permissionsPlan))
                 array_push($permissions, $permission);
@@ -24,13 +23,27 @@ trait UserACLTrait
         return $permissions;
     }
 
+
+    public function permissionsRoles(): array
+    {
+        $permissionsRole = $this->permissionsRole();
+        $permissions = [];
+
+        // percorrer o array a de permissions do cargo e verifica se está dentro do array de permissões do plano
+        foreach ($permissionsRole as $permission) {
+                array_push($permissions, $permission);
+        }
+        return $permissions;
+    }
+
+
+
     public function permissionsPlan(): array
     {
-        // puxa os relacionamentos até chegar nas permissions
+ // puxa os relacionamentos até chegar nas permissions
 
         // $tenant = $this->tenant;
         // $plan = $tenant->plan;
-
         $tenant = Tenant::with('plan.profiles.permissions')->where('id', $this->tenant_id)->first();
         $plan = $tenant->plan;
 
@@ -40,12 +53,13 @@ trait UserACLTrait
                 array_push($permissions, $permission->name);
             }
         }
+
         return $permissions;
     }
 
     public function permissionsRole(): array
     {
-        $roles =  $this->roles()->with('permissions')->get();
+        $roles = $this->roles()->with('permissions')->get();
 
         $permissions = [];
         foreach ($roles as $role) {
@@ -57,13 +71,20 @@ trait UserACLTrait
         return $permissions;
     }
 
-    // verifica se o usuario logado tem permissão
+ // verifica se o usuario logado tem permissão
     public function hasPermission(string $permissionName): bool
     {
         return in_array($permissionName, $this->permissions());
     }
 
-    // verifica se o email logado é super adm
+     // verifica se o usuario logado tem permissão
+     public function hasPermissionRole(string $permissionName): bool
+     {
+           return in_array($permissionName, $this->permissionsRoles());
+
+     }
+
+ // verifica se o email logado é super adm
     public function isAdmin(): bool
     {
         return in_array($this->email, config('acl.admins'));

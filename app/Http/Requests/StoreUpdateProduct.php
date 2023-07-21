@@ -44,7 +44,7 @@ class StoreUpdateProduct extends FormRequest
       //  dd($this->method());
 
       /**
-       * validação para ignorar quando a senha quando for method put
+       * validação para ignorar  a senha quando for method put
        */
 
         if($this->method() == 'PUT') {
