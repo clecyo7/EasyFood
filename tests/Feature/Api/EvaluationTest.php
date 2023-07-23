@@ -26,31 +26,31 @@ class Evaluationtest extends TestCase
     }
 
 
-       /**
+    /**
      * Test Create New Evaluation
      *
      * @return void
      */
+
+
     public function testCreateNewEvaluation()
     {
-        $client = Client::factory()->create();
+        $client = factory(Client::class)->create();
         $token = $client->createToken(Str::random(10))->plainTextToken;
 
-        $order = $client->orders()->save(Order::factory()->make());
+        $order = $client->orders()->save(factory(Order::class)->make());
 
         $payload = [
             'stars' => 5,
-            'comment' => Str::random(10),
-        ];
-
-        $headers = [
-            'Authorization' => "Bearer {$token}",
+            'comment' => Str::random(10), // Generating a random comment
         ];
 
         $response = $this->postJson(
-            "/auth/v1/orders/{$order}/evaluations",
+            "/api/auth/v1/orders/{$order->identify}/evaluations",
             $payload,
-            $headers
+            [
+                'Authorization' => "Bearer {$token}",
+            ]
         );
 
         $response->assertStatus(201);

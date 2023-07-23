@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\Plan;
-use App\Models\Product;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use App\Repositories\Contracts\TenantRepositoryInterface;
 
 class ProductService
 {
-    private $productRepository;
-    private $tenantRepository;
+    protected $productRepository, $tenantRepository;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,

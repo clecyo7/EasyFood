@@ -45,7 +45,7 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateProduct $request)
     {
         $data = $request->all();
 
@@ -104,7 +104,7 @@ class ProductsController extends Controller
                 ->with('warning', 'Produto não encontrado');;
         }
 
-        $data = $request->except(['_token', '_method']);
+        $data = $request->all();
         $tenant = auth()->user()->tenant;
 
 
@@ -116,7 +116,7 @@ class ProductsController extends Controller
             $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
         }
 
-        $product->update($data);
+            $product->update($data);
 
         return redirect()->route('products.index')
             ->with('sucess', 'Produto atualizado com sucesso');
