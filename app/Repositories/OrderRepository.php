@@ -42,7 +42,7 @@ class OrderRepository implements OrderRepositoryInterface
         return $order;
     }
 
-     /**
+    /**
      * cadastrar pedido
      */
 
@@ -52,7 +52,7 @@ class OrderRepository implements OrderRepositoryInterface
         $order = $this->entity->find($orderId);
         $orderProducts = [];
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $orderProducts[$product['id']] = [
                 'qty' => $product['qty'],
                 'price' => $product['price'],
@@ -89,4 +89,29 @@ class OrderRepository implements OrderRepositoryInterface
         return $this->entity->where('client_id', $idClient)->paginate();
     }
 
+    public function getOrdersByTenantId(int $idTenant, string $status, string $date = null)
+    {
+        $orders = $this->entity
+            ->where('tenant_id', $idTenant)
+            ->where(function ($query) use ($status) {
+                if ($status != 'all') {
+                    return $query->where('status', $status);
+                }
+            })
+            ->where(function ($query) use ($date) {
+                if ($date) {
+                    return $query->whereDate('created_at', $date);
+                }
+            })
+            ->get();
+
+        return $orders;
+    }
+
+    public function updateStatusOrder(string $identify, string $status)
+    {
+        $this->entity->where('identify', $identify)->update(['status' => $status]);
+
+        return $this->entity->where('identify', $identify)->first();
+    }
 }

@@ -13,6 +13,16 @@ use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
+
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['guest', 'check.selected.plan']);
+    }
     /**
      * Display the registration view.
      *
