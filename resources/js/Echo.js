@@ -4,7 +4,7 @@ import Bus from './bus'
 // get id tenant
 const tenantId = window.Laravel.tenantId;
 
-window.Echo.channel(`larafood_database_private-order-created.${tenantId}`)
+window.Echo.channel(`easyfood_database_private-order-created.${tenantId}`)
 .listen('OrderCreated', (e) => {
     Bus.$emit('order.created', e.order)
 
