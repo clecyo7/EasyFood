@@ -75,6 +75,7 @@
     @endif
 
     <link rel="icon" type="image/png" href="{{ url('imgs/easy6.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom-dash.css') }}">
     @stack('scripts-header')
 </head>
 

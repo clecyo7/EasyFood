@@ -106,9 +106,13 @@ class TenantController extends Controller
 
         if ($request->hasFile('logo') && $request->logo->isValid()) {
 
-            if (Storage::exists($tenant->logo)) {
-                Storage::delete($tenant->logo);
-            }
+            if(!is_null($tenant->image)) {
+                Storage::delete($tenant->image);
+             }
+
+            // if (Storage::exists($tenant->logo)) {
+            //     Storage::delete($tenant->logo);
+            // }
 
             $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}");
         }
