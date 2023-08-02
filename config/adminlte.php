@@ -375,7 +375,13 @@ return [
             'label_color' => 'success',
             'can'         => 'tables',
         ],
-
+        [
+            'text'        => 'Pedido ',
+            'url'         => 'admin/orders',
+            'icon'        => 'fas fa-utensils',
+            'label_color' => 'success',
+          //  'can'         => 'tables',
+        ],
 
         // ['header' => 'account_settings'],
         // [

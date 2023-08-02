@@ -1,7 +1,11 @@
 require('./bootstrap');
 
-import Alpine from 'alpinejs';
+window.Vue = require('vue').default;
+import VueToastify from "vue-toastify";
+Vue.use(VueToastify);
 
-window.Alpine = Alpine;
+Vue.component('orders-tenant', require('./components/Orders/OrdersTenant.vue').default);
 
-Alpine.start();
+const app = new Vue({
+    el: '#app',
+});
