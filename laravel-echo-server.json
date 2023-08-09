@@ -3,8 +3,8 @@
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 		{
-			"appId": "bcb571a63b8841ce",
-			"key": "7375789f1b80e8ce6cc6de011dea05b7"
+			"appId": "c51de08ceedcaabf",
+			"key": "fb17f652a4269cff19c61638d3a7b5ae"
 		}
 	],
 	"database": "redis",
@@ -30,7 +30,7 @@
 	},
 	"apiOriginAllow": {
 		"allowCors": true,
-		"allowOrigin": "http://easy.test",
+		"allowOrigin": "http://easyfood.test",
 		"allowMethods": "GET, POST",
 		"allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
 	}
