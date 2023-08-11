@@ -51,7 +51,7 @@
 
 <script>
 import Bus from '../../bus'
-import DetailOrder from './_partials/DetailOrder.vue'
+import DetailOrder from './_partials/DetailOrder'
 
 export default {
     mounted() {

@@ -1,6 +1,6 @@
 <template>
-    <div id="exampleModalLive" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" :style="{display: display}">
-        <div class="modal-dialog" role="document">
+    <div id="exampleModalLive"  class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" :style="{display: display}">
+        <div class="modal-dialog bg-slate-800" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLiveLabel">Detalhes do Pedido {{ order.identify }}</h5>
@@ -8,7 +8,7 @@
                     <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body bg-slate-800">
                     <form action="#" method="POST" class="form form-inline" @submit.prevent="updateStatus">
                         <label for="status">Status:</label>
                         <select name="status" class="form-control" v-model="status">
@@ -23,7 +23,7 @@
                             Atualizar Status
                         </button>
                     </form>
-                    <ul>
+                    <ul style="background: red;">
                         <li>Número do pedido: {{ order.identify }}</li>
                         <li>Total: R$ {{ total }}</li>
                         <li>Status: {{ order.status_label }}</li>
