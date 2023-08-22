@@ -48,7 +48,7 @@ services:
 
     # queue
     queue:
-        image: easyfood/laravel9-app
+        image: clecyo7/laravel9-app
         restart: unless-stopped
         command: "php artisan queue:work"
         volumes:

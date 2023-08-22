@@ -1,5 +1,5 @@
 {
-	"authHost": "http://easyfood.test",
+    "authHost": "http://localhost:8989",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 		{
@@ -30,7 +30,7 @@
 	},
 	"apiOriginAllow": {
 		"allowCors": true,
-		"allowOrigin": "http://easyfood.test",
+		"allowOrigin": "http://localhost:8989",
 		"allowMethods": "GET, POST",
 		"allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
 	}
